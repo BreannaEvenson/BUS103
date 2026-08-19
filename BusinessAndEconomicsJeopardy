@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Business Review Jeopardy</title>
+
+<style>
+:root {
+    --sauk-light: #f4f4f4;
+    --sauk-red: #c8102e;
+    --sauk-dark: #333333;
+    --sauk-white: #ffffff;
+    --sauk-bluegray: #455560;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--sauk-light);
+    color: var(--sauk-dark);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    font-family: inherit;
+}
+
+button:focus-visible {
+    outline: 4px solid #ffffff;
+    outline-offset: 3px;
+}
+
+.game-container {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 28px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.game-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.game-header h1 {
+    margin: 0 0 8px;
+    color: var(--sauk-red);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+}
+
+.game-header p {
+    margin: 0;
+    color: var(--sauk-bluegray);
+    font-size: 1.05rem;
+}
+
+.header-line {
+    width: 90px;
+    height: 5px;
+    margin: 15px auto 0;
+    border-radius: 10px;
+    background-color: var(--sauk-red);
+}
+
+/* =========================
+   BOARD
+========================= */
+
+.board-wrapper {
+    overflow-x: auto;
+}
+
+.jeopardy-board {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(170px, 1fr));
+    gap: 8px;
+    min-width: 1080px;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--sauk-dark);
+}
+
+.category {
+    display: flex;
+    min-height: 125px;
+    padding: 14px;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sauk-bluegray);
+    color: var(--sauk-white);
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: bold;
+    line-height: 1.3;
+}
+
+.point-button {
+    min-height: 115px;
+    border: 0;
+    background-color: var(--sauk-white);
+    color: var(--sauk-red);
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: bold;
+    transition:
+        transform .15s ease,
+        background-color .15s ease;
+}
+
+.point-button:hover:not(:disabled) {
+    background-color: var(--sauk-light);
+    transform: scale(1.025);
+}
+
+.point-button:focus-visible {
+    outline-color: var(--sauk-red);
+}
+
+.point-button.used {
+    background-color: #e1e1e1;
+    color: #777777;
+    text-decoration: line-through;
+    cursor: not-allowed;
+}
+
+.board-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.restart-button {
+    min-height: 48px;
+    padding: 12px 25px;
+    border: 0;
+    border-radius: 6px;
+    background-color: var(--sauk-red);
+    color: var(--sauk-white);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.restart-button:hover {
+    opacity: .9;
+}
+
+/* =========================
+   QUESTION SCREEN
+========================= */
+
+.question-screen {
+    display: none;
+    min-height: 620px;
+    padding: 40px 25px;
+    align-items: center;
+    justify-content: center;
+}
+
+.question-card {
+    width: 100%;
+    max-width: 950px;
+    overflow: hidden;
+    border: 3px solid var(--sauk-bluegray);
+    border-radius: 12px;
+    background-color: var(--sauk-white);
+    box-shadow: 0 7px 20px rgba(0,0,0,.12);
+}
+
+.question-top {
+    display: flex;
+    gap: 15px;
+    padding: 16px 22px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--sauk-bluegray);
+    color: var(--sauk-white);
+}
+
+.question-category {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.question-value {
+    color: var(--sauk-white);
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.question-body {
+    padding: 45px 40px;
+    text-align: center;
+}
+
+.question-text {
+    margin: 0;
+    color: var(--sauk-dark);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: bold;
+    line-height: 1.4;
+}
+
+.answer-box {
+    display: none;
+    margin-top: 35px;
+    padding: 25px;
+    border-left: 7px solid var(--sauk-red);
+    background-color: var(--sauk-light);
+    text-align: left;
+}
+
+.answer-label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--sauk-red);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.answer-text {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.6;
+}
+
+.question-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.action-button {
+    min-height: 48px;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 6px;
+    color: var(--sauk-white);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.reveal-button {
+    background-color: var(--sauk-red);
+}
+
+.back-button {
+    display: none;
+    background-color: var(--sauk-bluegray);
+}
+
+.action-button:hover {
+    opacity: .9;
+}
+
+/* =========================
+   SCREEN READER
+========================= */
+
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0,0,0,0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .game-container {
+        padding: 16px;
+    }
+
+    .question-body {
+        padding: 30px 20px;
+    }
+
+    .question-top {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .question-screen {
+        padding: 20px 5px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="game-container">
+
+<!-- =========================
+     GAME BOARD SCREEN
+========================= -->
+
+<section id="board-screen">
+
+<div class="game-header">
+
+<h1>Business Review Jeopardy</h1>
+
+<p>
+Choose a category and point value to reveal a question.
+</p>
+
+<div class="header-line" aria-hidden="true"></div>
+
+</div>
+
+<div class="board-wrapper">
+
+<div
+id="jeopardy-board"
+class="jeopardy-board"
+aria-label="Business review Jeopardy game board">
+
+<!-- CATEGORY HEADERS -->
+
+<div class="category">Business Basics</div>
+<div class="category">Factors of Production</div>
+<div class="category">The Business Environment</div>
+<div class="category">The Major Economic Systems</div>
+<div class="category">Economic Indicators</div>
+<div class="category">Free Market Concepts</div>
+
+<!-- $100 ROW -->
+
+<button class="point-button"
+data-category="Business Basics"
+data-value="100"
+aria-label="Business Basics for 100 points">
+100
+</button>
+
+<button class="point-button"
+data-category="Factors of Production"
+data-value="100"
+aria-label="Factors of Production for 100 points">
+100
+</button>
+
+<button class="point-button"
+data-category="The Business Environment"
+data-value="100"
+aria-label="The Business Environment for 100 points">
+100
+</button>
+
+<button class="point-button"
+data-category="The Major Economic Systems"
+data-value="100"
+aria-label="The Major Economic Systems for 100 points">
+100
+</button>
+
+<button class="point-button"
+data-category="Economic Indicators"
+data-value="100"
+aria-label="Economic Indicators for 100 points">
+100
+</button>
+
+<button class="point-button"
+data-category="Free Market Concepts"
+data-value="100"
+aria-label="Free Market Concepts for 100 points">
+100
+</button>
+
+<!-- $200 ROW -->
+
+<button class="point-button"
+data-category="Business Basics"
+data-value="200"
+aria-label="Business Basics for 200 points">
+200
+</button>
+
+<button class="point-button"
+data-category="Factors of Production"
+data-value="200"
+aria-label="Factors of Production for 200 points">
+200
+</button>
+
+<button class="point-button"
+data-category="The Business Environment"
+data-value="200"
+aria-label="The Business Environment for 200 points">
+200
+</button>
+
+<button class="point-button"
+data-category="The Major Economic Systems"
+data-value="200"
+aria-label="The Major Economic Systems for 200 points">
+200
+</button>
+
+<button class="point-button"
+data-category="Economic Indicators"
+data-value="200"
+aria-label="Economic Indicators for 200 points">
+200
+</button>
+
+<button class="point-button"
+data-category="Free Market Concepts"
+data-value="200"
+aria-label="Free Market Concepts for 200 points">
+200
+</button>
+
+<!-- $300 ROW -->
+
+<button class="point-button"
+data-category="Business Basics"
+data-value="300"
+aria-label="Business Basics for 300 points">
+300
+</button>
+
+<button class="point-button"
+data-category="Factors of Production"
+data-value="300"
+aria-label="Factors of Production for 300 points">
+300
+</button>
+
+<button class="point-button"
+data-category="The Business Environment"
+data-value="300"
+aria-label="The Business Environment for 300 points">
+300
+</button>
+
+<button class="point-button"
+data-category="The Major Economic Systems"
+data-value="300"
+aria-label="The Major Economic Systems for 300 points">
+300
+</button>
+
+<button class="point-button"
+data-category="Economic Indicators"
+data-value="300"
+aria-label="Economic Indicators for 300 points">
+300
+</button>
+
+<button class="point-button"
+data-category="Free Market Concepts"
+data-value="300"
+aria-label="Free Market Concepts for 300 points">
+300
+</button>
+
+<!-- $400 ROW -->
+
+<button class="point-button"
+data-category="Business Basics"
+data-value="400"
+aria-label="Business Basics for 400 points">
+400
+</button>
+
+<button class="point-button"
+data-category="Factors of Production"
+data-value="400"
+aria-label="Factors of Production for 400 points">
+400
+</button>
+
+<button class="point-button"
+data-category="The Business Environment"
+data-value="400"
+aria-label="The Business Environment for 400 points">
+400
+</button>
+
+<button class="point-button"
+data-category="The Major Economic Systems"
+data-value="400"
+aria-label="The Major Economic Systems for 400 points">
+400
+</button>
+
+<button class="point-button"
+data-category="Economic Indicators"
+data-value="400"
+aria-label="Economic Indicators for 400 points">
+400
+</button>
+
+<button class="point-button"
+data-category="Free Market Concepts"
+data-value="400"
+aria-label="Free Market Concepts for 400 points">
+400
+</button>
+
+</div>
+</div>
+
+<div class="board-controls">
+
+<button
+id="restart-button"
+class="restart-button"
+type="button">
+Restart Game
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     QUESTION SCREEN
+========================= -->
+
+<section
+id="question-screen"
+class="question-screen"
+aria-labelledby="question-text">
+
+<div class="question-card">
+
+<div class="question-top">
+
+<div
+id="question-category"
+class="question-category">
+</div>
+
+<div
+id="question-value"
+class="question-value">
+</div>
+
+</div>
+
+<div class="question-body">
+
+<p
+id="question-text"
+class="question-text"
+tabindex="-1">
+</p>
+
+<div
+id="answer-box"
+class="answer-box"
+aria-live="polite">
+
+<span class="answer-label">
+Answer
+</span>
+
+<p
+id="answer-text"
+class="answer-text">
+</p>
+
+</div>
+
+<div class="question-controls">
+
+<button
+id="reveal-button"
+type="button"
+class="action-button reveal-button">
+Reveal Answer
+</button>
+
+<button
+id="back-button"
+type="button"
+class="action-button back-button">
+Back to Game Board
+</button>
+
+</div>
+
+</div>
+</div>
+
+</section>
+
+</div>
+
+<script>
+
+/* ==========================================
+   QUESTIONS AND ANSWERS
+========================================== */
+
+const gameData = {
+
+    "Business Basics": {
+
+        100: {
+            question:
+                "What does outsourcing mean?",
+            answer:
+                "Outsourcing means hiring an outside person or company to perform work that could otherwise be done internally. It may involve another country, but outsourcing does not always mean sending work overseas."
+        },
+
+        200: {
+            question:
+                "If a business had revenue of $100,000 and expenses of $80,000, what is the profit?",
+            answer:
+                "$20,000. Profit = Revenue − Expenses, so $100,000 − $80,000 = $20,000."
+        },
+
+        300: {
+            question:
+                "What is the word for all the people impacted by or involved with business operations?",
+            answer:
+                "Stakeholders."
+        },
+
+        400: {
+            question:
+                "What is the difference between standard of living and quality of life?",
+            answer:
+                "Standard of living generally refers to how much people can afford and the material goods and services available to them. Quality of life refers more broadly to overall well-being, including factors such as health, safety, political freedom, relationships, leisure, and personal satisfaction. A person can have a high standard of living but still experience a relatively low quality of life."
+        }
+
+    },
+
+
+    "Factors of Production": {
+
+        100: {
+            question:
+                "Give two examples of capital.",
+            answer:
+                "Examples include money, machinery, equipment, tools, buildings, computers, factories, or other resources used to produce goods and services."
+        },
+
+        200: {
+            question:
+                "What is causing a job shortage or a restructuring of the work that needs to be done?",
+            answer:
+                "Knowledge, particularly in the form of technological advances."
+        },
+
+        300: {
+            question:
+                "Land as a factor of production includes more than just physical land. What else does it include?",
+            answer:
+                "Natural resources, such as water, minerals, oil, forests, and other resources that come from nature."
+        },
+
+        400: {
+            question:
+                "Which two factors of production are most likely to create the most wealth when combined?",
+            answer:
+                "Entrepreneurship and knowledge."
+        }
+
+    },
+
+
+    "The Business Environment": {
+
+        100: {
+            question:
+                "Name two ways a business can be more competitive.",
+            answer:
+                "Possible answers include product differentiation, higher quality, better customer service, lower prices, greater convenience, innovation, stronger branding, or faster delivery."
+        },
+
+        200: {
+            question:
+                "What's the difference between effective and efficient?",
+            answer:
+                "Effective means accomplishing the intended goal or doing what was supposed to be done. Efficient means accomplishing the task while using as few resources—such as time, money, or labor—as reasonably possible."
+        },
+
+        300: {
+            question:
+                "What is demography?",
+            answer:
+                "Demography is the study of the characteristics of a population, such as age, income, education, race, gender, geographic location, and other population traits."
+        },
+
+        400: {
+            question:
+                "How can the government help the business environment?",
+            answer:
+                "Examples include maintaining reasonable tax policies, enforcing contracts and property rights, supporting infrastructure, maintaining economic stability, reducing unnecessary barriers to starting businesses, and establishing laws that create a predictable environment for commerce."
+        }
+
+    },
+
+
+    "The Major Economic Systems": {
+
+        100: {
+            question:
+                "China, North Korea, Laos, and Cuba all operate under which economic system?",
+            answer:
+                "Communism."
+        },
+
+        200: {
+            question:
+                "What is brain drain?",
+            answer:
+                "Brain drain occurs when highly educated, talented, or skilled people leave a country or region, taking their knowledge and expertise with them."
+        },
+
+        300: {
+            question:
+                "What is the central idea of socialism?",
+            answer:
+                "Socialism emphasizes greater government involvement in the economy and a more even distribution of income and resources, often using tax revenue to provide social programs and public services."
+        },
+
+        400: {
+            question:
+                "What's one of the biggest criticisms of capitalism?",
+            answer:
+                "Income inequality—the benefits and wealth created within a capitalist economy may be distributed very unevenly."
+        }
+
+    },
+
+
+    "Economic Indicators": {
+
+        100: {
+            question:
+                "What's the difference between disinflation and deflation?",
+            answer:
+                "With disinflation, prices are still increasing, but they are increasing more slowly than before. With deflation, the overall price level is actually decreasing."
+        },
+
+        200: {
+            question:
+                "What measures the total value of final goods and services produced in a country during a specific period of time?",
+            answer:
+                "Gross Domestic Product, or GDP."
+        },
+
+        300: {
+            question:
+                "What type of unemployment includes people who are temporarily between jobs or just entering the workforce?",
+            answer:
+                "Frictional unemployment."
+        },
+
+        400: {
+            question:
+                "How does the Federal Reserve use monetary policy to influence the economy?",
+            answer:
+                "The Federal Reserve influences the economy primarily by affecting interest rates and the money supply. Lower rates generally encourage borrowing and spending, while higher rates generally slow borrowing and spending. Raising or lowering taxes is fiscal policy and is controlled by the government, not the Federal Reserve."
+        }
+
+    },
+
+
+    "Free Market Concepts": {
+
+        100: {
+            question:
+                "In which direction does a supply curve slope?",
+            answer:
+                "Upward."
+        },
+
+        200: {
+            question:
+                "What is the spot called where the supply curve and demand curve meet?",
+            answer:
+                "The equilibrium point."
+        },
+
+        300: {
+            question:
+                "What's an example of a seller in a monopoly?",
+            answer:
+                "A common example is a local utility provider, such as an electric, natural gas, or water company when it is the only provider in a particular geographic area."
+        },
+
+        400: {
+            question:
+                "When products are nearly identical and all sell for a very similar price, what type of competition are the sellers in?",
+            answer:
+                "Perfect competition."
+        }
+
+    }
+
+};
+
+
+/* ==========================================
+   PAGE ELEMENTS
+========================================== */
+
+const boardScreen =
+    document.getElementById("board-screen");
+
+const questionScreen =
+    document.getElementById("question-screen");
+
+const questionCategory =
+    document.getElementById("question-category");
+
+const questionValue =
+    document.getElementById("question-value");
+
+const questionText =
+    document.getElementById("question-text");
+
+const answerBox =
+    document.getElementById("answer-box");
+
+const answerText =
+    document.getElementById("answer-text");
+
+const revealButton =
+    document.getElementById("reveal-button");
+
+const backButton =
+    document.getElementById("back-button");
+
+const restartButton =
+    document.getElementById("restart-button");
+
+let currentButton = null;
+
+
+/* ==========================================
+   OPEN QUESTION
+========================================== */
+
+document
+.querySelectorAll(".point-button")
+.forEach(function(button) {
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            if (button.disabled) {
+                return;
+            }
+
+            currentButton = button;
+
+            const category =
+                button.dataset.category;
+
+            const value =
+                button.dataset.value;
+
+            const data =
+                gameData[category][value];
+
+            questionCategory.textContent =
+                category;
+
+            questionValue.textContent =
+                value + " Points";
+
+            questionText.textContent =
+                data.question;
+
+            answerText.textContent =
+                data.answer;
+
+            answerBox.style.display =
+                "none";
+
+            revealButton.style.display =
+                "inline-block";
+
+            backButton.style.display =
+                "none";
+
+            boardScreen.style.display =
+                "none";
+
+            questionScreen.style.display =
+                "flex";
+
+            questionText.focus();
+
+        }
+    );
+
+});
+
+
+/* ==========================================
+   REVEAL ANSWER
+========================================== */
+
+revealButton.addEventListener(
+    "click",
+    function() {
+
+        answerBox.style.display =
+            "block";
+
+        revealButton.style.display =
+            "none";
+
+        backButton.style.display =
+            "inline-block";
+
+        answerBox.setAttribute(
+            "tabindex",
+            "-1"
+        );
+
+        answerBox.focus();
+
+    }
+);
+
+
+/* ==========================================
+   BACK TO BOARD
+========================================== */
+
+backButton.addEventListener(
+    "click",
+    function() {
+
+        if (currentButton) {
+
+            currentButton.classList.add(
+                "used"
+            );
+
+            currentButton.disabled = true;
+
+            currentButton.setAttribute(
+                "aria-label",
+                currentButton.dataset.category +
+                " for " +
+                currentButton.dataset.value +
+                " points, already used"
+            );
+
+        }
+
+        questionScreen.style.display =
+            "none";
+
+        boardScreen.style.display =
+            "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+        const nextUnused =
+            document.querySelector(
+                ".point-button:not(:disabled)"
+            );
+
+        if (nextUnused) {
+            nextUnused.focus();
+        } else {
+            restartButton.focus();
+        }
+
+    }
+);
+
+
+/* ==========================================
+   RESTART GAME
+========================================== */
+
+restartButton.addEventListener(
+    "click",
+    function() {
+
+        const confirmRestart =
+            window.confirm(
+                "Restart the game and make all questions available again?"
+            );
+
+        if (!confirmRestart) {
+            return;
+        }
+
+        document
+        .querySelectorAll(".point-button")
+        .forEach(function(button) {
+
+            button.disabled = false;
+
+            button.classList.remove(
+                "used"
+            );
+
+            button.setAttribute(
+                "aria-label",
+                button.dataset.category +
+                " for " +
+                button.dataset.value +
+                " points"
+            );
+
+        });
+
+        document
+        .querySelector(".point-button")
+        .focus();
+
+    }
+);
+
+</script>
+
+</body>
+</html>
