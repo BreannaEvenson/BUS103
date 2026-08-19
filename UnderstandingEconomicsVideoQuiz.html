@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Economic Systems Interactive Video Quiz</title>
+
+<style>
+
+:root {
+    --light: #f4f4f4;
+    --red: #c8102e;
+    --dark: #333333;
+    --white: #ffffff;
+    --slate: #455560;
+
+    --green: #2e7d32;
+    --green-light: #e9f6eb;
+    --red-light: #fdecef;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--dark);
+}
+
+.app {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 28px 18px 50px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    margin: 0 0 7px;
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+.header p {
+    margin: 0;
+    color: var(--slate);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+.progress-area {
+    margin-bottom: 22px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 7px;
+
+    color: var(--slate);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.progress-track {
+    height: 9px;
+    background: #d8d8d8;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+
+    background: var(--red);
+
+    transition: width .3s ease;
+}
+
+
+/* =========================================
+   MAIN PANEL
+========================================= */
+
+.panel {
+    background: var(--white);
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    box-shadow: 0 4px 16px rgba(0,0,0,.08);
+}
+
+.eyebrow {
+    margin-bottom: 8px;
+
+    color: var(--red);
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+}
+
+h2 {
+    margin: 0 0 20px;
+
+    font-size: clamp(24px, 3.4vw, 34px);
+}
+
+
+/* =========================================
+   YOUTUBE VIDEO
+========================================= */
+
+.video-wrapper {
+    position: relative;
+
+    width: 100%;
+
+    padding-top: 56.25%;
+
+    background: #000;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+.video-wrapper iframe,
+.video-wrapper > div {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.helper {
+    margin: 13px 0 0;
+
+    color: var(--slate);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.primary-btn {
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 12px 19px;
+
+    background: var(--red);
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    opacity: .9;
+}
+
+.primary-btn:focus,
+.answer-btn:focus {
+    outline: 3px solid #000;
+    outline-offset: 3px;
+}
+
+.continue-btn {
+    display: none;
+
+    margin-top: 20px;
+}
+
+
+/* =========================================
+   QUESTIONS
+========================================= */
+
+.question {
+    margin: 8px 0 24px;
+
+    font-size: clamp(20px, 2.8vw, 28px);
+
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.answers {
+    display: grid;
+
+    gap: 12px;
+}
+
+.answer-btn {
+    width: 100%;
+
+    padding: 16px 17px;
+
+    text-align: left;
+
+    background: var(--white);
+    color: var(--dark);
+
+    border: 2px solid #d8d8d8;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 16px;
+
+    line-height: 1.4;
+
+    cursor: pointer;
+
+    transition:
+        border-color .15s ease,
+        background .15s ease,
+        transform .15s ease;
+}
+
+.answer-btn:hover:not(:disabled) {
+    border-color: var(--slate);
+
+    background: var(--light);
+
+    transform: translateY(-1px);
+}
+
+
+/* Wrong response */
+
+.answer-btn.wrong {
+    border-color: var(--red);
+
+    background: var(--red-light);
+
+    color: #7d1022;
+}
+
+
+/* Correct response */
+
+.answer-btn.correct {
+    border-color: var(--green);
+
+    background: var(--green-light);
+
+    color: #215b26;
+}
+
+.answer-btn:disabled {
+    cursor: default;
+}
+
+.question-counter {
+    margin-top: 19px;
+
+    color: var(--slate);
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   FEEDBACK POPUP
+========================================= */
+
+.modal-backdrop {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(51,51,51,.60);
+
+    z-index: 1000;
+}
+
+.modal-backdrop.show {
+    display: flex;
+}
+
+.modal {
+    width: min(430px, 100%);
+
+    padding: 28px;
+
+    text-align: center;
+
+    background: var(--white);
+
+    border-radius: 14px;
+
+    box-shadow: 0 16px 45px rgba(0,0,0,.28);
+}
+
+.modal h3 {
+    margin: 0 0 11px;
+
+    font-size: 30px;
+}
+
+.modal.correct h3 {
+    color: var(--green);
+}
+
+.modal.wrong h3 {
+    color: var(--red);
+}
+
+.modal p {
+    margin: 0 0 20px;
+
+    color: var(--slate);
+
+    font-size: 16px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   FINAL SCREEN
+========================================= */
+
+.complete {
+    text-align: center;
+
+    padding: 38px 12px;
+}
+
+.complete-mark {
+    display: grid;
+
+    place-items: center;
+
+    width: 74px;
+    height: 74px;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: var(--red);
+
+    color: var(--white);
+
+    font-size: 40px;
+
+    font-weight: 900;
+}
+
+.complete h2 {
+    margin-bottom: 10px;
+}
+
+.complete-text {
+    margin: 0 0 28px;
+
+    color: var(--slate);
+
+    font-size: 18px;
+}
+
+.final-score {
+    display: inline-block;
+
+    padding: 22px 34px;
+
+    background: var(--light);
+
+    border-left: 6px solid var(--red);
+
+    border-radius: 10px;
+
+    font-size: clamp(22px, 4vw, 34px);
+
+    font-weight: 700;
+}
+
+.final-score strong {
+    color: var(--red);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .app {
+        padding: 15px 12px 40px;
+    }
+
+    .panel {
+        padding: 19px;
+    }
+
+    .answer-btn {
+        padding: 14px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<header class="header">
+
+    <h1>
+        Economic Systems
+    </h1>
+
+    <p>
+        Watch each video and complete the knowledge checks that follow.
+    </p>
+
+</header>
+
+
+
+<div class="progress-area">
+
+    <div class="progress-info">
+
+        <span id="progressText">
+            Video 1 of 6
+        </span>
+
+        <span id="progressPercent">
+            0%
+        </span>
+
+    </div>
+
+
+    <div class="progress-track">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<main
+    class="panel"
+    id="panel">
+</main>
+
+
+</div>
+
+
+
+<!-- =========================================
+     CORRECT / INCORRECT POPUP
+========================================= -->
+
+<div
+    class="modal-backdrop"
+    id="feedbackBackdrop"
+    aria-hidden="true">
+
+    <div
+        class="modal"
+        id="feedbackModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="feedbackTitle">
+
+        <h3 id="feedbackTitle"></h3>
+
+        <p id="feedbackText"></p>
+
+        <button
+            class="primary-btn"
+            id="feedbackButton"
+            type="button">
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   LESSON CONTENT
+========================================================= */
+
+const lesson = [
+
+
+
+/* =========================================================
+   VIDEO 1
+   BASIC ECONOMICS
+========================================================= */
+
+{
+    title: "Basic Economics",
+
+    youtubeId: "dlkN97-nmAE",
+
+    questions: [
+
+        {
+            question:
+                'In economics, what does it mean when a resource is “scarce”?',
+
+            answers: [
+
+                {
+                    text: "It is expensive",
+                    correct: false
+                },
+
+                {
+                    text: "It is limited",
+                    correct: true
+                },
+
+                {
+                    text: "It is no longer useful",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which of the following is an example of a microeconomics question?",
+
+            answers: [
+
+                {
+                    text:
+                        "Why is inflation increasing across the country?",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "How should a business price its new product?",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Why did the country's unemployment rate increase?",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "How quickly is the national economy growing?",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which topic would most likely be studied in macroeconomics?",
+
+            answers: [
+
+                {
+                    text:
+                        "A customer's decision to buy a new phone",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "The price charged by a local restaurant",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "The country's unemployment rate",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "According to Adam Smith, how could societies create greater wealth?",
+
+            answers: [
+
+                {
+                    text:
+                        "By eliminating competition",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "By producing more goods and services",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "By having the government make all economic decisions",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                'What does Adam Smith’s “invisible hand” describe?',
+
+            answers: [
+
+                {
+                    text:
+                        "The government controlling prices in the economy",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Businesses working together to eliminate competition",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Individual self-interest and competition helping guide activity in a market",
+                    correct: true
+                }
+
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================================================
+   VIDEO 2
+   CAPITALISM & FREE MARKETS
+========================================================= */
+
+{
+    title: "Capitalism & Free Markets",
+
+    youtubeId: "3VosZSRcPp0",
+
+    questions: [
+
+        {
+            question:
+                "Which statement best describes capitalism?",
+
+            answers: [
+
+                {
+                    text:
+                        "Government makes most production and pricing decisions",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Individuals and businesses make many economic decisions",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Businesses are not allowed to keep their profits",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which is a commonly discussed disadvantage of capitalism?",
+
+            answers: [
+
+                {
+                    text:
+                        "Income inequality",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Lack of private property",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Elimination of business profits",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What is the main idea behind conscious capitalism?",
+
+            answers: [
+
+                {
+                    text:
+                        "Businesses should avoid making profits",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Government should own all businesses",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Businesses can make profits while operating ethically",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Businesses should operate without competition",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What generally happens to the quantity sellers are willing to supply as the price of a product increases?",
+
+            answers: [
+
+                {
+                    text:
+                        "It decreases",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "It increases",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What generally happens to the quantity consumers demand as the price of a product decreases?",
+
+            answers: [
+
+                {
+                    text:
+                        "It increases",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "It decreases",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What does the equilibrium point represent on a supply-and-demand graph?",
+
+            answers: [
+
+                {
+                    text:
+                        "The point where the supply and demand curves meet",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "The point where supply reaches zero",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "The price established by the government",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Many farmers sell potatoes that buyers see as essentially identical, and no individual farmer can control the market price. What type of competition does this represent?",
+
+            answers: [
+
+                {
+                    text:
+                        "Perfect competition",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Monopolistic competition",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Oligopoly",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Monopoly",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "A market is dominated by only a few large companies because entering the industry requires a very large initial investment. What type of competition does this describe?",
+
+            answers: [
+
+                {
+                    text:
+                        "Perfect competition",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Monopolistic competition",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Oligopoly",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Monopoly",
+                    correct: false
+                }
+
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================================================
+   VIDEO 3
+   SOCIALISM
+========================================================= */
+
+{
+    title: "Socialism",
+
+    youtubeId: "-b2WQHJGhbc",
+
+    questions: [
+
+        {
+            question:
+                "Which of the following could be a benefit provided through a socialist system?",
+
+            answers: [
+
+                {
+                    text:
+                        "Lower prices on all consumer products",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Government-funded education and childcare",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                'What is “brain drain”?',
+
+            answers: [
+
+                {
+                    text:
+                        "A decrease in the number of people attending college",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Businesses losing money because of high taxes",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "A country losing highly skilled and educated people who move elsewhere",
+                    correct: true
+                }
+
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================================================
+   VIDEO 4
+   COMMUNISM
+========================================================= */
+
+{
+    title: "Communism",
+
+    youtubeId: "qydWWsP-U_w",
+
+    questions: [
+
+        {
+            question:
+                "Which statement best describes communism?",
+
+            answers: [
+
+                {
+                    text:
+                        "Businesses make most major economic decisions",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "The government makes most major economic decisions and controls most major factors of production",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Consumers make all decisions about production",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What can happen if government planners underestimate how much of a product people need?",
+
+            answers: [
+
+                {
+                    text:
+                        "Inflation automatically stops",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "A shortage can occur",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Competition increases",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Why might communism reduce incentives for entrepreneurs?",
+
+            answers: [
+
+                {
+                    text:
+                        "Individuals have fewer opportunities to personally profit from starting and growing businesses",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Entrepreneurs are required to compete with too many businesses",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Consumers determine all business profits",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What is one major difference between communism and a free-market economy?",
+
+            answers: [
+
+                {
+                    text:
+                        "Communism relies more heavily on buyers and sellers to set production levels",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Communism places more production and pricing decisions in the hands of the government",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Free markets eliminate the use of prices",
+                    correct: false
+                }
+
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================================================
+   VIDEO 5
+   THE MAJOR SYSTEMS
+========================================================= */
+
+{
+    title: "The Major Systems",
+
+    youtubeId: "m-VpkDHKprU",
+
+    questions: [
+
+        {
+            question:
+                "In a free-market economy, who largely determines what gets produced and how resources are distributed?",
+
+            answers: [
+
+                {
+                    text:
+                        "The government",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Buyers, sellers, and the market",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Banks",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which economic system is most closely associated with a free-market economy?",
+
+            answers: [
+
+                {
+                    text:
+                        "Capitalism",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Socialism",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Communism",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which is a potential weakness of a free-market economy?",
+
+            answers: [
+
+                {
+                    text:
+                        "It does not encourage entrepreneurship",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "It may not adequately provide for people who cannot financially support themselves",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which is a potential challenge of a highly controlled command economy?",
+
+            answers: [
+
+                {
+                    text:
+                        "It may reduce incentives for entrepreneurship and innovation",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "It creates too much competition between businesses",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What is a mixed economy?",
+
+            answers: [
+
+                {
+                    text:
+                        "An economy that changes between capitalism and communism each year",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "An economy where both markets and government play a role in allocating resources",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Private businesses decide what products to sell, but the government also provides public programs and regulates businesses. What type of economy does this BEST describe?",
+
+            answers: [
+
+                {
+                    text:
+                        "Free-Market Economy",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Mixed Economy",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Command Economy",
+                    correct: false
+                }
+
+            ]
+        }
+
+    ]
+},
+
+
+
+/* =========================================================
+   VIDEO 6
+   U.S. ECONOMIC SYSTEM
+========================================================= */
+
+{
+    title: "U.S. Economic System",
+
+    youtubeId: "RL993L4KgSE",
+
+    questions: [
+
+        {
+            question:
+                "Which of the following would be included in U.S. GDP?",
+
+            answers: [
+
+                {
+                    text:
+                        "Products made at a U.S.-owned factory in Japan",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Vehicles made at a Honda factory located in Ohio",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Products made in Japan and imported into the United States",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which person would be an example of frictional unemployment?",
+
+            answers: [
+
+                {
+                    text:
+                        "A recent college graduate who is looking for their first job",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "A factory worker who lost their job because their skills are no longer needed",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "A worker who was laid off because of a recession",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which type of unemployment is caused by a recession or downturn in the business cycle?",
+
+            answers: [
+
+                {
+                    text:
+                        "Seasonal",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Structural",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Cyclical",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Prices are still increasing, but they are increasing more slowly than before. What is this called?",
+
+            answers: [
+
+                {
+                    text:
+                        "Disinflation",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Deflation",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Stagflation",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "Which situation would most likely occur during a recession?",
+
+            answers: [
+
+                {
+                    text:
+                        "Businesses expand and unemployment falls",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Consumer spending increases rapidly",
+                    correct: false
+                },
+
+                {
+                    text:
+                        "Businesses struggle and unemployment rises",
+                    correct: true
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "What is fiscal policy?",
+
+            answers: [
+
+                {
+                    text:
+                        "Government decisions about taxes and government spending",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "The Federal Reserve's management of interest rates",
+                    correct: false
+                }
+
+            ]
+        },
+
+
+        {
+            question:
+                "If the economy is growing too quickly and inflation is becoming a problem, what might the Federal Reserve do?",
+
+            answers: [
+
+                {
+                    text:
+                        "Raise interest rates",
+                    correct: true
+                },
+
+                {
+                    text:
+                        "Lower interest rates",
+                    correct: false
+                }
+
+            ]
+        }
+
+    ]
+}
+
+];
+
+
+
+/* =========================================================
+   QUIZ SETTINGS
+========================================================= */
+
+/*
+There are currently 32 total questions.
+This calculates the total automatically,
+so if questions are added later the score
+will update automatically.
+*/
+
+const totalQuestions =
+    lesson.reduce(
+        (total, section) =>
+            total + section.questions.length,
+        0
+    );
+
+
+let sectionIndex = 0;
+
+let questionIndex = -1;
+
+
+/*
+Score counts questions answered
+correctly on the FIRST attempt.
+*/
+
+let score = 0;
+
+
+/*
+Tracks completed questions for the
+progress bar.
+*/
+
+let completedQuestions = 0;
+
+
+/*
+Tracks whether the student already
+missed the current question.
+*/
+
+let questionHadWrongAttempt = false;
+
+
+/*
+Prevents additional clicks after
+the correct answer is selected.
+*/
+
+let questionLocked = false;
+
+
+/*
+Stores randomized answer order.
+*/
+
+let randomizedAnswers = [];
+
+
+/*
+Stores YouTube player.
+*/
+
+let youtubePlayer = null;
+
+let youtubeAPIReady = false;
+
+
+
+/* =========================================================
+   PAGE ELEMENTS
+========================================================= */
+
+const panel =
+    document.getElementById(
+        "panel"
+    );
+
+
+const progressText =
+    document.getElementById(
+        "progressText"
+    );
+
+
+const progressPercent =
+    document.getElementById(
+        "progressPercent"
+    );
+
+
+const progressBar =
+    document.getElementById(
+        "progressBar"
+    );
+
+
+const feedbackBackdrop =
+    document.getElementById(
+        "feedbackBackdrop"
+    );
+
+
+const feedbackModal =
+    document.getElementById(
+        "feedbackModal"
+    );
+
+
+const feedbackTitle =
+    document.getElementById(
+        "feedbackTitle"
+    );
+
+
+const feedbackText =
+    document.getElementById(
+        "feedbackText"
+    );
+
+
+const feedbackButton =
+    document.getElementById(
+        "feedbackButton"
+    );
+
+
+
+/* =========================================================
+   LOAD YOUTUBE IFRAME API
+========================================================= */
+
+/*
+Define the callback BEFORE loading
+the YouTube API.
+*/
+
+window.onYouTubeIframeAPIReady =
+    function () {
+
+        youtubeAPIReady =
+            true;
+
+    };
+
+
+const youtubeScript =
+    document.createElement(
+        "script"
+    );
+
+
+youtubeScript.src =
+    "https://www.youtube.com/iframe_api";
+
+
+document.head.appendChild(
+    youtubeScript
+);
+
+
+
+/* =========================================================
+   RANDOMIZE ANSWERS
+========================================================= */
+
+function shuffle(array) {
+
+    const copy =
+        [...array];
+
+
+    for (
+        let i = copy.length - 1;
+        i > 0;
+        i--
+    ) {
+
+        const j =
+            Math.floor(
+                Math.random() *
+                (i + 1)
+            );
+
+
+        [
+            copy[i],
+            copy[j]
+        ] =
+        [
+            copy[j],
+            copy[i]
+        ];
+
+    }
+
+
+    return copy;
+
+}
+
+
+
+/* =========================================================
+   UPDATE PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const percent =
+        Math.round(
+            (
+                completedQuestions /
+                totalQuestions
+            ) * 100
+        );
+
+
+    progressBar.style.width =
+        percent + "%";
+
+
+    progressPercent.textContent =
+        percent + "%";
+
+
+    /*
+    Entire lesson complete
+    */
+
+    if (
+        sectionIndex >=
+        lesson.length
+    ) {
+
+        progressText.textContent =
+            "Complete";
+
+        return;
+
+    }
+
+
+    /*
+    Currently watching a video
+    */
+
+    if (
+        questionIndex === -1
+    ) {
+
+        progressText.textContent =
+            `Video ${sectionIndex + 1} of ${lesson.length}`;
+
+        return;
+
+    }
+
+
+    /*
+    Currently answering questions
+    */
+
+    const section =
+        lesson[
+            sectionIndex
+        ];
+
+
+    progressText.textContent =
+        `${section.title} — Question ${questionIndex + 1} of ${section.questions.length}`;
+
+}
+
+
+
+/* =========================================================
+   DISPLAY VIDEO
+========================================================= */
+
+function renderVideo() {
+
+    questionIndex =
+        -1;
+
+
+    updateProgress();
+
+
+    /*
+    Remove previous YouTube player.
+    */
+
+    if (
+        youtubePlayer &&
+        typeof youtubePlayer.destroy ===
+            "function"
+    ) {
+
+        try {
+
+            youtubePlayer.destroy();
+
+        }
+
+        catch (error) {
+
+            console.log(
+                error
+            );
+
+        }
+
+    }
+
+
+    youtubePlayer =
+        null;
+
+
+    const section =
+        lesson[
+            sectionIndex
+        ];
+
+
+    panel.innerHTML = `
+
+        <div class="eyebrow">
+
+            Video
+            ${sectionIndex + 1}
+            of
+            ${lesson.length}
+
+        </div>
+
+
+        <h2>
+
+            ${section.title}
+
+        </h2>
+
+
+        <div class="video-wrapper">
+
+            <div id="youtubePlayer"></div>
+
+        </div>
+
+
+        <p class="helper">
+
+            You may pause, rewind, or fast-forward the video.
+
+            Continue will appear when the video reaches the end.
+
+        </p>
+
+
+        <button
+            class="primary-btn continue-btn"
+            id="continueBtn"
+            type="button">
+
+            Continue to Questions →
+
+        </button>
+
+    `;
+
+
+    waitForYouTubeAPI(
+        section.youtubeId
+    );
+
+}
+
+
+
+/* =========================================================
+   WAIT UNTIL YOUTUBE API IS READY
+========================================================= */
+
+function waitForYouTubeAPI(
+    videoId
+) {
+
+    if (
+        youtubeAPIReady &&
+        window.YT &&
+        YT.Player
+    ) {
+
+        createYouTubePlayer(
+            videoId
+        );
+
+
+        return;
+
+    }
+
+
+    setTimeout(
+        function () {
+
+            waitForYouTubeAPI(
+                videoId
+            );
+
+        },
+
+        100
+    );
+
+}
+
+
+
+/* =========================================================
+   CREATE YOUTUBE PLAYER
+========================================================= */
+
+function createYouTubePlayer(
+    videoId
+) {
+
+    youtubePlayer =
+        new YT.Player(
+            "youtubePlayer",
+            {
+
+                videoId:
+                    videoId,
+
+                playerVars: {
+
+                    controls: 1,
+
+                    rel: 0,
+
+                    playsinline: 1,
+
+                    modestbranding: 1
+
+                },
+
+                events: {
+
+                    onStateChange:
+                        handleYouTubeStateChange
+
+                }
+
+            }
+        );
+
+}
+
+
+
+/* =========================================================
+   DETECT WHEN VIDEO ENDS
+========================================================= */
+
+function handleYouTubeStateChange(
+    event
+) {
+
+    if (
+        event.data ===
+        YT.PlayerState.ENDED
+    ) {
+
+        const continueButton =
+            document.getElementById(
+                "continueBtn"
+            );
+
+
+        if (
+            continueButton
+        ) {
+
+            continueButton.style.display =
+                "inline-block";
+
+
+            continueButton.onclick =
+                function () {
+
+                    questionIndex =
+                        0;
+
+
+                    renderQuestion();
+
+                };
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   DISPLAY QUESTION
+========================================================= */
+
+function renderQuestion() {
+
+    updateProgress();
+
+
+    const section =
+        lesson[
+            sectionIndex
+        ];
+
+
+    const item =
+        section.questions[
+            questionIndex
+        ];
+
+
+    /*
+    Reset state for new question.
+    */
+
+    questionHadWrongAttempt =
+        false;
+
+
+    questionLocked =
+        false;
+
+
+    /*
+    Randomize response order.
+    */
+
+    randomizedAnswers =
+        shuffle(
+            item.answers
+        );
+
+
+    const answersHTML =
+        randomizedAnswers
+            .map(
+
+                (
+                    answer,
+                    index
+                ) => `
+
+                    <button
+                        class="answer-btn"
+                        type="button"
+                        data-index="${index}">
+
+                        ${answer.text}
+
+                    </button>
+
+                `
+
+            )
+            .join("");
+
+
+    panel.innerHTML = `
+
+        <div class="eyebrow">
+
+            ${section.title}
+
+        </div>
+
+
+        <h2>
+
+            Knowledge Check
+
+        </h2>
+
+
+        <div class="question">
+
+            ${item.question}
+
+        </div>
+
+
+        <div class="answers">
+
+            ${answersHTML}
+
+        </div>
+
+
+        <div class="question-counter">
+
+            Question
+            ${questionIndex + 1}
+            of
+            ${section.questions.length}
+
+        </div>
+
+    `;
+
+
+    const answerButtons =
+        [
+            ...document.querySelectorAll(
+                ".answer-btn"
+            )
+        ];
+
+
+    answerButtons.forEach(
+        button => {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+
+                    /*
+                    Ignore clicks once answered.
+                    */
+
+                    if (
+                        questionLocked
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    const selectedIndex =
+                        Number(
+                            button.dataset.index
+                        );
+
+
+                    const selectedAnswer =
+                        randomizedAnswers[
+                            selectedIndex
+                        ];
+
+
+
+                    /* =================================
+                       WRONG RESPONSE
+                    ================================= */
+
+                    if (
+                        !selectedAnswer.correct
+                    ) {
+
+                        /*
+                        Mark question as missed.
+                        */
+
+                        questionHadWrongAttempt =
+                            true;
+
+
+                        /*
+                        Turn selected answer red.
+                        */
+
+                        button.classList.add(
+                            "wrong"
+                        );
+
+
+                        /*
+                        Don't allow same wrong answer
+                        to be clicked repeatedly.
+                        */
+
+                        button.disabled =
+                            true;
+
+
+                        /*
+                        This is where backend reporting
+                        can be added later.
+                        */
+
+
+                        showWrongPopup();
+
+
+                        return;
+
+                    }
+
+
+
+                    /* =================================
+                       CORRECT RESPONSE
+                    ================================= */
+
+                    questionLocked =
+                        true;
+
+
+                    /*
+                    Turn selected response green.
+                    */
+
+                    button.classList.add(
+                        "correct"
+                    );
+
+
+                    /*
+                    Disable all answer buttons.
+                    */
+
+                    answerButtons.forEach(
+                        btn => {
+
+                            btn.disabled =
+                                true;
+
+                        }
+                    );
+
+
+                    /*
+                    Award one point only if
+                    correct on first attempt.
+                    */
+
+                    if (
+                        !questionHadWrongAttempt
+                    ) {
+
+                        score++;
+
+                    }
+
+
+                    /*
+                    Update completed question count.
+                    */
+
+                    completedQuestions++;
+
+
+                    updateProgress();
+
+
+                    showCorrectPopup();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   WRONG ANSWER POPUP
+========================================================= */
+
+function showWrongPopup() {
+
+    feedbackModal.className =
+        "modal wrong";
+
+
+    feedbackTitle.textContent =
+        "Try Again";
+
+
+    feedbackText.textContent =
+        "That response is not correct. Try another answer.";
+
+
+    feedbackButton.textContent =
+        "Try Again";
+
+
+    feedbackBackdrop.classList.add(
+        "show"
+    );
+
+
+    feedbackBackdrop.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    feedbackButton.focus();
+
+
+    feedbackButton.onclick =
+        function () {
+
+            closeFeedback();
+
+        };
+
+}
+
+
+
+/* =========================================================
+   CORRECT ANSWER POPUP
+========================================================= */
+
+function showCorrectPopup() {
+
+    feedbackModal.className =
+        "modal correct";
+
+
+    feedbackTitle.textContent =
+        "Correct!";
+
+
+    feedbackText.textContent =
+        "You got it right.";
+
+
+    feedbackButton.textContent =
+        "Continue";
+
+
+    feedbackBackdrop.classList.add(
+        "show"
+    );
+
+
+    feedbackBackdrop.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    feedbackButton.focus();
+
+
+    feedbackButton.onclick =
+        function () {
+
+
+            closeFeedback();
+
+
+            const section =
+                lesson[
+                    sectionIndex
+                ];
+
+
+            /*
+            More questions remain
+            after this video.
+            */
+
+            if (
+                questionIndex <
+                section.questions.length - 1
+            ) {
+
+                questionIndex++;
+
+
+                renderQuestion();
+
+
+                return;
+
+            }
+
+
+            /*
+            Finished this section.
+            */
+
+            moveToNextVideo();
+
+        };
+
+}
+
+
+
+/* =========================================================
+   CLOSE FEEDBACK POPUP
+========================================================= */
+
+function closeFeedback() {
+
+    feedbackBackdrop.classList.remove(
+        "show"
+    );
+
+
+    feedbackBackdrop.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
+}
+
+
+
+/* =========================================================
+   MOVE TO NEXT VIDEO
+========================================================= */
+
+function moveToNextVideo() {
+
+    sectionIndex++;
+
+
+    /*
+    Entire lesson finished.
+    */
+
+    if (
+        sectionIndex >=
+        lesson.length
+    ) {
+
+        renderCompletion();
+
+
+        return;
+
+    }
+
+
+    /*
+    Load next video.
+    */
+
+    renderVideo();
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+
+/* =========================================================
+   COMPLETION SCREEN
+========================================================= */
+
+function renderCompletion() {
+
+    questionIndex =
+        -1;
+
+
+    updateProgress();
+
+
+    panel.innerHTML = `
+
+        <div class="complete">
+
+
+            <div class="complete-mark">
+
+                ✓
+
+            </div>
+
+
+            <h2>
+
+                Lesson Complete
+
+            </h2>
+
+
+            <p class="complete-text">
+
+                You completed all six videos
+                and knowledge checks.
+
+            </p>
+
+
+            <div
+                class="final-score"
+                aria-label="Your total score is ${score} out of ${totalQuestions}">
+
+                Your total score is
+
+                <strong>
+
+                    ${score}/${totalQuestions}
+
+                </strong>.
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+
+/* =========================================================
+   POPUP BEHAVIOR
+========================================================= */
+
+/*
+Clicking outside the popup closes
+a WRONG-answer popup.
+
+Students must click Continue after
+a correct response.
+*/
+
+feedbackBackdrop.addEventListener(
+    "click",
+    function (
+        event
+    ) {
+
+        if (
+            event.target ===
+                feedbackBackdrop &&
+            feedbackModal.classList.contains(
+                "wrong"
+            )
+        ) {
+
+            closeFeedback();
+
+        }
+
+    }
+);
+
+
+
+/*
+Escape key also closes
+a wrong-answer popup.
+*/
+
+document.addEventListener(
+    "keydown",
+    function (
+        event
+    ) {
+
+        if (
+            event.key ===
+                "Escape" &&
+            feedbackBackdrop.classList.contains(
+                "show"
+            ) &&
+            feedbackModal.classList.contains(
+                "wrong"
+            )
+        ) {
+
+            closeFeedback();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   START LESSON
+========================================================= */
+
+renderVideo();
+
+</script>
+
+
+</body>
+</html>
