@@ -1523,6 +1523,14 @@ const lesson = [
 ========================================================= */
 
 /*
+Google Apps Script web app that receives
+the FIRST wrong response for each missed question.
+*/
+const WRONG_RESPONSE_ENDPOINT =
+    "https://script.google.com/macros/s/AKfycbw_bYuCd8zY6fPmNhjX5ApOEl78XCaOPHwnMdKF48va-rysqkz2-DJfv3CRQ87oMmnn/exec";
+
+
+/*
 There are currently 32 total questions.
 This calculates the total automatically,
 so if questions are added later the score
@@ -1723,6 +1731,71 @@ function shuffle(array) {
 
 }
 
+
+
+/* =========================================================
+   REPORT WRONG RESPONSES
+========================================================= */
+
+/*
+Sends one row to the Google Sheet when a student
+misses a question for the first time.
+
+The Google Sheet receives:
+- question
+- studentAnswer
+- correctAnswer
+
+The request runs in the background and does not
+interrupt the student's quiz if reporting fails.
+*/
+function sendWrongResponse(
+    question,
+    studentAnswer,
+    correctAnswer
+) {
+
+    fetch(
+        WRONG_RESPONSE_ENDPOINT,
+        {
+            method: "POST",
+
+            /*
+            no-cors lets the GitHub-hosted quiz
+            send data to the Google Apps Script
+            web app without requiring the student
+            to sign in.
+            */
+            mode: "no-cors",
+
+            headers: {
+                "Content-Type":
+                    "text/plain;charset=utf-8"
+            },
+
+            body: JSON.stringify({
+                question: question,
+                studentAnswer: studentAnswer,
+                correctAnswer: correctAnswer
+            })
+        }
+    )
+    .catch(
+        function (error) {
+
+            /*
+            Reporting should never stop the quiz
+            from functioning for the student.
+            */
+            console.log(
+                "Wrong-response reporting failed:",
+                error
+            );
+
+        }
+    );
+
+}
 
 
 /* =========================================================
@@ -2191,6 +2264,16 @@ function renderQuestion() {
                     ) {
 
                         /*
+                        Capture whether this is the
+                        FIRST wrong attempt on the
+                        current question.
+                        */
+
+                        const firstWrongAttempt =
+                            !questionHadWrongAttempt;
+
+
+                        /*
                         Mark question as missed.
                         */
 
@@ -2217,9 +2300,31 @@ function renderQuestion() {
 
 
                         /*
-                        This is where backend reporting
-                        can be added later.
+                        Send only the first wrong
+                        response for this question
+                        to the Google Sheet.
                         */
+
+                        if (
+                            firstWrongAttempt
+                        ) {
+
+                            const correctAnswer =
+                                item.answers.find(
+                                    answer =>
+                                        answer.correct
+                                );
+
+
+                            sendWrongResponse(
+                                item.question,
+                                selectedAnswer.text,
+                                correctAnswer
+                                    ? correctAnswer.text
+                                    : ""
+                            );
+
+                        }
 
 
                         showWrongPopup();
