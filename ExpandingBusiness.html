@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Growing & Expanding a Business</title>
+  <style>
+    :root{
+      --sauk-red:#C8102E;
+      --sauk-slate:#455560;
+      --sauk-dark:#333333;
+      --sauk-light:#F4F4F4;
+      --sauk-white:#FFFFFF;
+      --sauk-border:#D8DDE1;
+      --sauk-green:#2E6B45;
+      --sauk-green-bg:#EDF7F1;
+      --sauk-red-bg:#FFF1F3;
+      --sauk-blue-bg:#EEF6F9;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--sauk-light);
+      color:var(--sauk-dark);
+      line-height:1.6;
+    }
+
+    .page{
+      max-width:1180px;
+      margin:0 auto;
+      padding:28px 20px 60px;
+    }
+
+    h1{
+      font-size:2.4rem;
+      color:var(--sauk-red);
+      text-align:center;
+      margin:0 0 14px;
+    }
+
+    h2{
+      color:var(--sauk-red);
+      font-size:1.7rem;
+      margin:44px 0 16px;
+      border-bottom:3px solid var(--sauk-red);
+      padding-bottom:8px;
+    }
+
+    h3{
+      color:var(--sauk-slate);
+      margin:0 0 12px;
+    }
+
+    p{
+      margin:10px 0;
+    }
+
+    .intro{
+      background:var(--sauk-white);
+      border-left:8px solid var(--sauk-red);
+      border-radius:12px;
+      padding:24px 28px;
+      box-shadow:0 4px 14px rgba(0,0,0,.07);
+      margin-bottom:34px;
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+      margin-top:18px;
+    }
+
+    .card{
+      background:var(--sauk-white);
+      border:2px solid var(--sauk-border);
+      border-top:6px solid var(--sauk-red);
+      border-radius:12px;
+      padding:22px;
+      box-shadow:0 3px 10px rgba(0,0,0,.05);
+    }
+
+    .card h3{
+      color:var(--sauk-red);
+      font-size:1.4rem;
+      margin-bottom:12px;
+    }
+
+    .activity{
+      background:var(--sauk-white);
+      border:2px solid var(--sauk-border);
+      border-radius:14px;
+      padding:24px;
+      margin-top:24px;
+      box-shadow:0 3px 10px rgba(0,0,0,.05);
+    }
+
+    .activity h3{
+      color:var(--sauk-red);
+      margin-top:0;
+      font-size:1.35rem;
+    }
+
+    .question-block{
+      border:1px solid var(--sauk-border);
+      border-radius:10px;
+      padding:16px;
+      margin:14px 0;
+      background:#fafafa;
+    }
+
+    .question-block label{
+      font-weight:bold;
+      display:block;
+      margin-bottom:8px;
+      color:var(--sauk-slate);
+    }
+
+    select,
+    input[type="text"]{
+      width:100%;
+      padding:11px 12px;
+      border:2px solid var(--sauk-slate);
+      border-radius:8px;
+      font-size:1rem;
+      background:var(--sauk-white);
+    }
+
+    .btn-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .btn{
+      border:0;
+      border-radius:8px;
+      padding:11px 18px;
+      font-weight:bold;
+      cursor:pointer;
+      font-size:.98rem;
+    }
+
+    .btn-primary{
+      background:var(--sauk-red);
+      color:var(--sauk-white);
+    }
+
+    .btn-secondary{
+      background:var(--sauk-slate);
+      color:var(--sauk-white);
+    }
+
+    .btn-light{
+      background:var(--sauk-white);
+      color:var(--sauk-slate);
+      border:2px solid var(--sauk-slate);
+    }
+
+    .btn:hover,
+    .btn:focus{
+      opacity:.94;
+    }
+
+    .feedback{
+      margin-top:16px;
+      padding:12px 14px;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .correct{
+      background:var(--sauk-green-bg);
+      color:var(--sauk-green);
+      border:1px solid var(--sauk-green);
+    }
+
+    .incorrect{
+      background:var(--sauk-red-bg);
+      color:var(--sauk-red);
+      border:1px solid var(--sauk-red);
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    .callout{
+      background:var(--sauk-slate);
+      color:var(--sauk-white);
+      border-radius:12px;
+      padding:24px 26px;
+      margin-top:24px;
+    }
+
+    .callout h3{
+      color:var(--sauk-white);
+      margin-bottom:10px;
+    }
+
+    .reveal-answer{
+      margin-top:18px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:10px;
+      padding:18px;
+    }
+
+    .reveal-answer ul{
+      margin:10px 0 0 22px;
+    }
+
+    .reveal-answer li{
+      margin:10px 0;
+    }
+
+    .franchise-layout{
+      display:grid;
+      grid-template-columns:1fr 120px 1fr;
+      gap:18px;
+      align-items:start;
+      margin-top:22px;
+    }
+
+    .franchise-card{
+      background:var(--sauk-white);
+      border:2px solid var(--sauk-border);
+      border-top:6px solid var(--sauk-red);
+      border-radius:12px;
+      padding:22px;
+      box-shadow:0 3px 10px rgba(0,0,0,.05);
+      min-height:260px;
+    }
+
+    .franchise-card h3{
+      color:var(--sauk-red);
+      font-size:1.8rem;
+      text-align:center;
+      margin-bottom:14px;
+    }
+
+    .relationship{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:260px;
+      color:var(--sauk-red);
+      font-weight:bold;
+      text-align:center;
+    }
+
+    .relationship .arrows{
+      font-size:2.3rem;
+      line-height:1.1;
+      margin-bottom:10px;
+    }
+
+    .relationship .label{
+      color:var(--sauk-slate);
+      font-size:1rem;
+    }
+
+    .fill-blank{
+      background:var(--sauk-white);
+      border:2px solid var(--sauk-border);
+      border-radius:14px;
+      padding:22px;
+      margin-top:24px;
+      box-shadow:0 3px 10px rgba(0,0,0,.05);
+    }
+
+    .fill-blank h3{
+      color:var(--sauk-red);
+    }
+
+    .inline-input{
+      max-width:220px;
+      display:inline-block;
+      vertical-align:middle;
+      margin:0 8px;
+    }
+
+    .co-op-box{
+      background:var(--sauk-white);
+      border:2px solid var(--sauk-border);
+      border-left:8px solid var(--sauk-red);
+      border-radius:12px;
+      padding:22px;
+      margin-top:18px;
+      box-shadow:0 3px 10px rgba(0,0,0,.05);
+    }
+
+    .summary{
+      background:var(--sauk-blue-bg);
+      border:2px solid var(--sauk-border);
+      border-radius:14px;
+      padding:24px;
+      margin-top:30px;
+    }
+
+    .summary h2{
+      margin-top:0;
+    }
+
+    .summary ul{
+      margin:12px 0 0 22px;
+    }
+
+    .summary li{
+      margin:8px 0;
+    }
+
+    .small-note{
+      color:var(--sauk-slate);
+      font-size:.95rem;
+    }
+
+    @media (max-width:900px){
+      .two-col,
+      .franchise-layout{
+        grid-template-columns:1fr;
+      }
+
+      .relationship{
+        min-height:auto;
+        padding:6px 0;
+      }
+
+      .relationship .arrows{
+        transform:rotate(90deg);
+      }
+    }
+
+    @media (max-width:640px){
+      h1{
+        font-size:2rem;
+      }
+
+      h2{
+        font-size:1.45rem;
+      }
+
+      .page{
+        padding:22px 14px 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <section class="intro">
+      <h1>Growing &amp; Expanding a Business</h1>
+      <p>
+        We've already looked at how a business can be owned. Now we'll look at ways businesses
+        can grow and expand, including mergers, acquisitions, and franchising.
+      </p>
+    </section>
+
+    <section>
+      <h2>Merger vs. Acquisition</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <h3>Merger</h3>
+          <p>
+            A <strong>merger</strong> happens when <strong>two companies combine</strong> to become
+            one organization.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Acquisition</h3>
+          <p>
+            An <strong>acquisition</strong> happens when <strong>one company purchases another
+            company</strong> and takes control of it.
+          </p>
+        </div>
+      </div>
+
+      <div class="activity">
+        <h3>Knowledge Check: Merger or Acquisition?</h3>
+        <p class="small-note">
+          Read each scenario and choose the best answer.
+        </p>
+
+        <div class="question-block">
+          <label for="ma1">
+            1. Company A and Company B mutually agree to combine their businesses into one new organization.
+          </label>
+          <select id="ma1" data-answer="Merger">
+            <option value="">Select an answer</option>
+            <option value="Merger">Merger</option>
+            <option value="Acquisition">Acquisition</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="ma2">
+            2. A large grocery chain purchases a smaller regional grocery chain and takes control of its locations.
+          </label>
+          <select id="ma2" data-answer="Acquisition">
+            <option value="">Select an answer</option>
+            <option value="Merger">Merger</option>
+            <option value="Acquisition">Acquisition</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="ma3">
+            3. Two competing technology companies agree to combine their operations and ownership.
+          </label>
+          <select id="ma3" data-answer="Merger">
+            <option value="">Select an answer</option>
+            <option value="Merger">Merger</option>
+            <option value="Acquisition">Acquisition</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="ma4">
+            4. A national fitness company buys a smaller fitness brand.
+          </label>
+          <select id="ma4" data-answer="Acquisition">
+            <option value="">Select an answer</option>
+            <option value="Merger">Merger</option>
+            <option value="Acquisition">Acquisition</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" onclick="checkMergerAcquisition()">
+            Check Answers
+          </button>
+          <button class="btn btn-secondary" type="button" onclick="resetMergerAcquisition()">
+            Reset
+          </button>
+        </div>
+
+        <div id="maFeedback" class="feedback hidden" aria-live="polite"></div>
+      </div>
+
+      <div class="callout">
+        <h3>Quick Reflection</h3>
+        <p>
+          <strong>Why might a company choose to merge with or acquire another company instead of growing completely on its own?</strong>
+        </p>
+
+        <div class="btn-row">
+          <button class="btn btn-light" type="button" onclick="toggleReflectionAnswer()">
+            Click Here to Reveal Answer
+          </button>
+        </div>
+
+        <div id="reflectionAnswer" class="reveal-answer hidden">
+          <ul>
+            <li>
+              <strong>Gain customers:</strong> A company may instantly gain the other company's existing customers
+              rather than spending years trying to attract them one by one.
+            </li>
+            <li>
+              <strong>Enter new markets:</strong> Merging with or buying another company can help a business move
+              into a new city, region, or type of market more quickly than starting from scratch.
+            </li>
+            <li>
+              <strong>Acquire resources/technology:</strong> A company may want access to equipment, employees,
+              patents, systems, or technology that another company already has.
+            </li>
+            <li>
+              <strong>Grow faster:</strong> Building growth internally can take a long time. A merger or acquisition
+              may allow a company to expand much more quickly.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>How Franchising Works</h2>
+
+      <div class="franchise-layout">
+        <div class="franchise-card">
+          <h3>Franchisor</h3>
+          <p>
+            The <strong>franchisor</strong> is the established company or brand.
+          </p>
+          <p><strong>Provides:</strong></p>
+          <ul>
+            <li>Brand name</li>
+            <li>Business system</li>
+            <li>Training</li>
+            <li>Support</li>
+            <li>Marketing guidance</li>
+            <li>Operating standards</li>
+          </ul>
+        </div>
+
+        <div class="relationship" aria-hidden="true">
+          <div class="arrows">← →</div>
+          <div class="label">Business relationship</div>
+        </div>
+
+        <div class="franchise-card">
+          <h3>Franchisee</h3>
+          <p>
+            The <strong>franchisee</strong> is the individual or business owner operating a local franchise location.
+          </p>
+          <p><strong>Provides:</strong></p>
+          <ul>
+            <li>Initial investment</li>
+            <li>Franchise fee</li>
+            <li>Ongoing fees/royalties</li>
+            <li>Day-to-day operation</li>
+            <li>Local management</li>
+            <li>Agreement to follow the system</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="fill-blank">
+        <h3>Fill in the Blank</h3>
+        <p>
+          A
+          <span class="inline-input">
+            <input type="text" id="royaltyInput" aria-label="Type your answer here" />
+          </span>
+          is an ongoing fee a franchisee pays to the franchisor, often based on a percentage of sales.
+        </p>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" onclick="checkRoyalty()">
+            Check Answer
+          </button>
+          <button class="btn btn-secondary" type="button" onclick="resetRoyalty()">
+            Reset
+          </button>
+        </div>
+
+        <div id="royaltyFeedback" class="feedback hidden" aria-live="polite"></div>
+      </div>
+
+      <div class="activity">
+        <h3>Who Does What?</h3>
+        <p class="small-note">
+          Decide whether each responsibility belongs to the <strong>franchisor</strong> or the <strong>franchisee</strong>.
+        </p>
+
+        <div class="question-block">
+          <label for="fd1">1. Creates the overall brand</label>
+          <select id="fd1" data-answer="Franchisor">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="fd2">2. Pays for the right to operate the franchise</label>
+          <select id="fd2" data-answer="Franchisee">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="fd3">3. Provides training</label>
+          <select id="fd3" data-answer="Franchisor">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="fd4">4. Operates an individual location</label>
+          <select id="fd4" data-answer="Franchisee">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="fd5">5. Establishes many of the business standards</label>
+          <select id="fd5" data-answer="Franchisor">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="question-block">
+          <label for="fd6">6. Pays royalties</label>
+          <select id="fd6" data-answer="Franchisee">
+            <option value="">Select an answer</option>
+            <option value="Franchisor">Franchisor</option>
+            <option value="Franchisee">Franchisee</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" onclick="checkFranchiseRoles()">
+            Check Answers
+          </button>
+          <button class="btn btn-secondary" type="button" onclick="resetFranchiseRoles()">
+            Reset
+          </button>
+        </div>
+
+        <div id="franchiseFeedback" class="feedback hidden" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Cooperatives</h2>
+
+      <div class="co-op-box">
+        <p>
+          A <strong>cooperative</strong> is a business that is <strong>owned and controlled by the people who use its services</strong>.
+        </p>
+        <p>
+          Instead of existing mainly to benefit outside investors, a cooperative is organized to serve its members.
+          Cooperatives are common in areas such as agriculture, retail, and financial services.
+        </p>
+      </div>
+
+      <div class="activity">
+        <h3>Quick Check: Cooperative or Not?</h3>
+
+        <div class="question-block">
+          <label for="coop1">
+            A group of farmers jointly owns an organization that purchases supplies, markets their products,
+            and provides services to its members. What type of business organization is this?
+          </label>
+          <select id="coop1">
+            <option value="">Select an answer</option>
+            <option value="Corporation">Corporation</option>
+            <option value="Franchise">Franchise</option>
+            <option value="Cooperative">Cooperative</option>
+            <option value="Sole Proprietorship">Sole Proprietorship</option>
+          </select>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-primary" type="button" onclick="checkCoop()">
+            Check Answer
+          </button>
+          <button class="btn btn-secondary" type="button" onclick="resetCoop()">
+            Reset
+          </button>
+        </div>
+
+        <div id="coopFeedback" class="feedback hidden" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="summary">
+      <h2>Quick Summary</h2>
+      <ul>
+        <li>
+          A <strong>merger</strong> is when two companies combine into one organization.
+        </li>
+        <li>
+          An <strong>acquisition</strong> is when one company purchases another company.
+        </li>
+        <li>
+          In franchising, the <strong>franchisor</strong> provides the brand and system, while the
+          <strong>franchisee</strong> pays to operate under that system.
+        </li>
+        <li>
+          A <strong>royalty</strong> is an ongoing fee a franchisee pays to the franchisor.
+        </li>
+        <li>
+          A <strong>cooperative</strong> is owned and controlled by the people who use its services.
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <script>
+    function checkMergerAcquisition(){
+      const selects = [
+        document.getElementById("ma1"),
+        document.getElementById("ma2"),
+        document.getElementById("ma3"),
+        document.getElementById("ma4")
+      ];
+
+      let correct = 0;
+      let unanswered = 0;
+
+      selects.forEach(select => {
+        select.style.borderColor = "";
+        if(select.value === ""){
+          unanswered++;
+          return;
+        }
+        if(select.value === select.dataset.answer){
+          correct++;
+          select.style.borderColor = "#2E6B45";
+        } else {
+          select.style.borderColor = "#C8102E";
+        }
+      });
+
+      const feedback = document.getElementById("maFeedback");
+      feedback.classList.remove("hidden", "correct", "incorrect");
+
+      if(unanswered > 0){
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Please answer all four questions before checking.";
+      } else if(correct === selects.length){
+        feedback.classList.add("correct");
+        feedback.textContent = "Correct! You successfully distinguished mergers from acquisitions.";
+      } else {
+        feedback.classList.add("incorrect");
+        feedback.textContent = `${correct} out of ${selects.length} are correct. Review the highlighted answers and try again.`;
+      }
+    }
+
+    function resetMergerAcquisition(){
+      const selects = [
+        document.getElementById("ma1"),
+        document.getElementById("ma2"),
+        document.getElementById("ma3"),
+        document.getElementById("ma4")
+      ];
+
+      selects.forEach(select => {
+        select.value = "";
+        select.style.borderColor = "";
+      });
+
+      document.getElementById("maFeedback").classList.add("hidden");
+    }
+
+    function toggleReflectionAnswer(){
+      document.getElementById("reflectionAnswer").classList.toggle("hidden");
+    }
+
+    function checkRoyalty(){
+      const input = document.getElementById("royaltyInput");
+      const feedback = document.getElementById("royaltyFeedback");
+      const answer = input.value.trim().toLowerCase();
+
+      feedback.classList.remove("hidden", "correct", "incorrect");
+
+      if(answer === ""){
+        input.style.borderColor = "#C8102E";
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Type an answer before checking.";
+      } else if(answer === "royalty" || answer === "royalties"){
+        input.style.borderColor = "#2E6B45";
+        feedback.classList.add("correct");
+        feedback.textContent = "Correct! A royalty is an ongoing fee a franchisee pays to the franchisor.";
+      } else {
+        input.style.borderColor = "#C8102E";
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Not quite. The correct word is “royalty.”";
+      }
+    }
+
+    function resetRoyalty(){
+      const input = document.getElementById("royaltyInput");
+      input.value = "";
+      input.style.borderColor = "";
+      document.getElementById("royaltyFeedback").classList.add("hidden");
+    }
+
+    function checkFranchiseRoles(){
+      const selects = [
+        document.getElementById("fd1"),
+        document.getElementById("fd2"),
+        document.getElementById("fd3"),
+        document.getElementById("fd4"),
+        document.getElementById("fd5"),
+        document.getElementById("fd6")
+      ];
+
+      let correct = 0;
+      let unanswered = 0;
+
+      selects.forEach(select => {
+        select.style.borderColor = "";
+        if(select.value === ""){
+          unanswered++;
+          return;
+        }
+        if(select.value === select.dataset.answer){
+          correct++;
+          select.style.borderColor = "#2E6B45";
+        } else {
+          select.style.borderColor = "#C8102E";
+        }
+      });
+
+      const feedback = document.getElementById("franchiseFeedback");
+      feedback.classList.remove("hidden", "correct", "incorrect");
+
+      if(unanswered > 0){
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Please answer all six items before checking.";
+      } else if(correct === selects.length){
+        feedback.classList.add("correct");
+        feedback.textContent = "Correct! You clearly understand the relationship between the franchisor and the franchisee.";
+      } else {
+        feedback.classList.add("incorrect");
+        feedback.textContent = `${correct} out of ${selects.length} are correct. Review the highlighted answers and try again.`;
+      }
+    }
+
+    function resetFranchiseRoles(){
+      const selects = [
+        document.getElementById("fd1"),
+        document.getElementById("fd2"),
+        document.getElementById("fd3"),
+        document.getElementById("fd4"),
+        document.getElementById("fd5"),
+        document.getElementById("fd6")
+      ];
+
+      selects.forEach(select => {
+        select.value = "";
+        select.style.borderColor = "";
+      });
+
+      document.getElementById("franchiseFeedback").classList.add("hidden");
+    }
+
+    function checkCoop(){
+      const select = document.getElementById("coop1");
+      const feedback = document.getElementById("coopFeedback");
+      feedback.classList.remove("hidden", "correct", "incorrect");
+
+      if(select.value === ""){
+        select.style.borderColor = "#C8102E";
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Please choose an answer before checking.";
+      } else if(select.value === "Cooperative"){
+        select.style.borderColor = "#2E6B45";
+        feedback.classList.add("correct");
+        feedback.textContent = "Correct! A business owned and used by its members is a cooperative.";
+      } else {
+        select.style.borderColor = "#C8102E";
+        feedback.classList.add("incorrect");
+        feedback.textContent = "Not quite. The correct answer is cooperative.";
+      }
+    }
+
+    function resetCoop(){
+      const select = document.getElementById("coop1");
+      select.value = "";
+      select.style.borderColor = "";
+      document.getElementById("coopFeedback").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
