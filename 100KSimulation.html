@@ -1,0 +1,7153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>$100K Startup Budget Challenge | Cupcakes & Shakes</title>
+
+<style>
+:root {
+    --red: #C8102E;
+    --red-dark: #970C23;
+    --black: #171717;
+    --charcoal: #333333;
+    --gray: #666666;
+    --light-gray: #F3F3F3;
+    --border: #D6D6D6;
+    --white: #FFFFFF;
+
+    --green: #217A45;
+    --green-bg: #EAF6EE;
+
+    --yellow: #8A6200;
+    --yellow-bg: #FFF7DA;
+
+    --danger: #A82121;
+    --danger-bg: #FCEBEB;
+
+    --blue: #24577A;
+    --blue-bg: #EDF5FA;
+
+    --shadow: 0 5px 18px rgba(0,0,0,.08);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #EDEDED;
+    color: var(--black);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+#app {
+    max-width: 1180px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: white;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top-header {
+    background: var(--black);
+    color: white;
+    border-top: 9px solid var(--red);
+    padding: 21px 5% 17px;
+}
+
+.top-header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+}
+
+.game-label {
+    display: inline-block;
+    background: var(--red);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: .73rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+}
+
+.top-header h1 {
+    margin: 0;
+    line-height: 1.1;
+    font-size: clamp(1.6rem, 3vw, 2.35rem);
+}
+
+.progress-wrap {
+    margin-top: 15px;
+}
+
+.progress-track {
+    height: 8px;
+    background: #454545;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--red);
+    transition: width .3s ease;
+}
+
+.progress-text {
+    margin-top: 5px;
+    color: #D7D7D7;
+    font-size: .8rem;
+}
+
+/* =========================================================
+   RUNNING SCORE
+   ========================================================= */
+
+.status-wrap {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: 0 2px 7px rgba(0,0,0,.05);
+}
+
+.status-bar {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 10px 5%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 9px;
+}
+
+.status-card {
+    background: var(--light-gray);
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.status-card span {
+    display: block;
+    color: var(--gray);
+    font-size: .66rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: .04em;
+}
+
+.status-card strong {
+    display: block;
+    font-size: 1.08rem;
+}
+
+.status-card.rep strong {
+    color: var(--red);
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page-content {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 5% 65px;
+}
+
+.eyebrow {
+    color: var(--red);
+    font-size: .78rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 7px;
+}
+
+h2 {
+    font-size: clamp(1.65rem, 4vw, 2.35rem);
+    line-height: 1.12;
+    margin: 0 0 15px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.lead {
+    font-size: 1.08rem;
+    color: #3E3E3E;
+}
+
+.rule {
+    width: 72px;
+    height: 5px;
+    background: var(--red);
+    margin: 18px 0 24px;
+}
+
+.scenario {
+    border-left: 7px solid var(--red);
+    background: var(--light-gray);
+    border-radius: 7px;
+    padding: 21px 23px;
+    margin: 22px 0;
+    box-shadow: var(--shadow);
+}
+
+.scenario p:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   ALWAYS-VISIBLE BUDGET PANEL
+   ========================================================= */
+
+.business-dashboard {
+    margin-bottom: 31px;
+}
+
+.dashboard-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+    background: var(--black);
+    color: white;
+    border-radius: 8px 8px 0 0;
+    padding: 12px 16px;
+}
+
+.dashboard-heading h3 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.dashboard-total {
+    font-size: .9rem;
+}
+
+.balance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border: 1px solid var(--border);
+    border-top: 0;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+
+.balance-item {
+    padding: 12px;
+    background: white;
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+}
+
+.balance-item:nth-child(4n) {
+    border-right: 0;
+}
+
+.balance-item span {
+    display: block;
+    color: var(--gray);
+    font-size: .67rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.balance-item strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 1rem;
+}
+
+.balance-item.revenue-box {
+    background: #F8F8F8;
+}
+
+/* =========================================================
+   CALLOUTS
+   ========================================================= */
+
+.callout {
+    border-radius: 7px;
+    padding: 17px 19px;
+    margin: 18px 0;
+}
+
+.callout.good {
+    background: var(--green-bg);
+    border: 1px solid #A6D4B5;
+}
+
+.callout.warning {
+    background: var(--yellow-bg);
+    border: 1px solid #DFC871;
+}
+
+.callout.bad {
+    background: var(--danger-bg);
+    border: 1px solid #E1A8A8;
+}
+
+.callout.info {
+    background: var(--blue-bg);
+    border: 1px solid #B5D0DF;
+}
+
+.big-number {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: var(--red);
+}
+
+/* =========================================================
+   CATEGORY EXPLANATIONS
+   ========================================================= */
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 15px;
+    margin: 23px 0;
+}
+
+.category-card {
+    border: 1px solid var(--border);
+    border-top: 5px solid var(--red);
+    border-radius: 7px;
+    padding: 16px;
+    background: white;
+}
+
+.category-card h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.category-card p {
+    margin: 0;
+    color: var(--gray);
+    font-size: .91rem;
+}
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.budget-form {
+    margin-top: 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.form-title {
+    background: var(--black);
+    color: white;
+    padding: 16px 19px;
+}
+
+.form-title h3 {
+    margin: 0 0 3px;
+}
+
+.form-title p {
+    color: #DDD;
+    margin: 0;
+    font-size: .9rem;
+}
+
+.form-body {
+    padding: 20px;
+}
+
+.money-row {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) 180px;
+    gap: 15px;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #E5E5E5;
+}
+
+.money-row:last-child {
+    border-bottom: 0;
+}
+
+.money-row label {
+    font-weight: bold;
+}
+
+.money-row small {
+    display: block;
+    color: var(--gray);
+    font-weight: normal;
+}
+
+.money-input-wrap {
+    position: relative;
+}
+
+.money-input-wrap::before {
+    content: "$";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    font-weight: bold;
+}
+
+.money-input {
+    width: 100%;
+    border: 2px solid #AAA;
+    border-radius: 5px;
+    padding: 9px 9px 9px 26px;
+}
+
+.money-input:focus {
+    outline: 3px solid rgba(200,16,46,.13);
+    border-color: var(--red);
+}
+
+.total-box {
+    background: var(--light-gray);
+    border-radius: 6px;
+    padding: 12px 14px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    font-weight: bold;
+}
+
+.total-box.good {
+    background: var(--green-bg);
+    color: var(--green);
+}
+
+.total-box.over {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* =========================================================
+   DECISION BUTTONS
+   ========================================================= */
+
+.decision-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.decision {
+    width: 100%;
+    text-align: left;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: .15s ease;
+}
+
+.decision:hover:not(:disabled),
+.decision.selected {
+    border-color: var(--red);
+    box-shadow: 0 4px 15px rgba(200,16,46,.12);
+}
+
+.decision.selected {
+    background: #FFF7F8;
+}
+
+.decision strong {
+    display: block;
+    font-size: 1.07rem;
+    margin-bottom: 5px;
+}
+
+.decision span {
+    color: var(--gray);
+    font-size: .91rem;
+}
+
+.decision:disabled {
+    opacity: .48;
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 27px;
+}
+
+.primary {
+    border: none;
+    background: var(--red);
+    color: white;
+    padding: 12px 19px;
+    border-radius: 5px;
+    font-weight: 800;
+}
+
+.primary:hover {
+    background: var(--red-dark);
+}
+
+.secondary {
+    border: none;
+    background: var(--black);
+    color: white;
+    padding: 12px 19px;
+    border-radius: 5px;
+    font-weight: 800;
+}
+
+.error-box {
+    display: none;
+    margin-top: 14px;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid #DFA7A7;
+    border-radius: 5px;
+    padding: 11px 13px;
+    font-weight: bold;
+}
+
+/* =========================================================
+   FINAL
+   ========================================================= */
+
+.final-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 17px;
+    margin: 27px 0;
+}
+
+.final-card {
+    padding: 24px;
+    border-radius: 9px;
+    text-align: center;
+    background: var(--light-gray);
+}
+
+.final-card span {
+    display: block;
+    color: var(--gray);
+    font-size: .75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.final-card strong {
+    display: block;
+    font-size: 2rem;
+    margin-top: 5px;
+}
+
+.overall-score {
+    background: var(--black);
+    color: white;
+    border-radius: 10px;
+    padding: 27px;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.score-number {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+.score-number span {
+    font-size: 1.4rem;
+    color: #CCC;
+}
+
+.result-title {
+    margin-top: 11px;
+    font-weight: bold;
+    font-size: 1.35rem;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer-controls {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 5% 35px;
+    text-align: right;
+}
+
+.reset-link {
+    border: none;
+    background: none;
+    color: #777;
+    text-decoration: underline;
+    font-size: .8rem;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+    .status-bar {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .balance-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .balance-item:nth-child(4n) {
+        border-right: 1px solid var(--border);
+    }
+
+    .balance-item:nth-child(2n) {
+        border-right: 0;
+    }
+
+    .category-grid,
+    .decision-grid,
+    .final-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .money-row {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* =========================================================
+   GAME SETTINGS
+   ========================================================= */
+
+const STARTING_BUDGET = 100000;
+
+const CATEGORY_META = [
+    {
+        key: "location",
+        label: "Location / Building",
+        description: "Lease deposits, renovations, signage, storefront improvements, and future location costs."
+    },
+    {
+        key: "equipment",
+        label: "Equipment",
+        description: "Ovens, mixers, refrigerators, commercial shake machines, POS systems, and other equipment."
+    },
+    {
+        key: "inventory",
+        label: "Inventory",
+        description: "Ingredients, cups, straws, toppings, packaging, and supplies needed to serve customers."
+    },
+    {
+        key: "payroll",
+        label: "Payroll",
+        description: "Money set aside specifically to pay employees."
+    },
+    {
+        key: "marketing",
+        label: "Marketing",
+        description: "Advertising, social media, promotions, and other efforts to attract customers."
+    },
+    {
+        key: "insurance",
+        label: "Insurance",
+        description: "Business liability and other coverage that protects the company when something goes wrong."
+    },
+    {
+        key: "reserves",
+        label: "Cash Reserves",
+        description: "Flexible emergency money available for unexpected expenses."
+    }
+];
+
+const TOTAL_STAGES = 25;
+
+const STORAGE_KEY =
+    "svccCupcakesShakes100KGameV2";
+
+
+/* =========================================================
+   STARTING STATE
+   ========================================================= */
+
+function freshState() {
+
+    return {
+
+        stage: 0,
+
+        reputation: 50,
+
+        totalRevenue: 0,
+
+        availableRevenue: 0,
+
+        ownerPayout: 0,
+
+        currentMonthOwnerPayout: 0,
+
+        lastMonthOwnerPayout: 0,
+
+        categories: {
+            location: 0,
+            equipment: 0,
+            inventory: 0,
+            payroll: 0,
+            marketing: 0,
+            insurance: 0,
+            reserves: 0
+        },
+
+        initialEquipmentInvestment: 0,
+
+        marketingChoice: null,
+
+        equipmentChoice: null,
+
+        retirementChoice: null,
+
+        attorneyChoice: null,
+
+        employeeChoice: null,
+
+        expansionChoice: null,
+
+        applied: {},
+
+        events: {}
+    };
+}
+
+let state = loadState();
+
+
+/* =========================================================
+   SAVE / LOAD
+   ========================================================= */
+
+function loadState() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(STORAGE_KEY);
+
+        if (saved) {
+            return JSON.parse(saved);
+        }
+
+    } catch (error) {}
+
+    return freshState();
+}
+
+
+function persist() {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(state)
+        );
+
+    } catch (error) {}
+}
+
+
+/* =========================================================
+   BASIC HELPERS
+   ========================================================= */
+
+function money(value) {
+
+    const number =
+        Number(value || 0);
+
+    return new Intl.NumberFormat(
+        "en-US",
+        {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0
+        }
+    ).format(number);
+}
+
+
+function cleanNum(value) {
+
+    const number =
+        Number(value);
+
+    if (
+        !Number.isFinite(number) ||
+        number < 0
+    ) {
+        return 0;
+    }
+
+    return Math.round(number);
+}
+
+
+function readMoney(id) {
+
+    const element =
+        document.getElementById(id);
+
+    return cleanNum(
+        element ? element.value : 0
+    );
+}
+
+
+function sumCategories() {
+
+    return Object.values(state.categories)
+        .reduce(
+            (total, amount) =>
+                total + Number(amount || 0),
+            0
+        );
+}
+
+
+function earnRevenue(amount) {
+
+    state.totalRevenue += amount;
+
+    state.availableRevenue += amount;
+}
+
+
+function addOwnerPayout(amount) {
+
+    state.ownerPayout += amount;
+
+    state.currentMonthOwnerPayout += amount;
+}
+
+
+function adjustReputation(amount) {
+
+    state.reputation += amount;
+
+    if (state.reputation < 0) {
+        state.reputation = 0;
+    }
+}
+
+
+/* =========================================================
+   PAYROLL
+   ========================================================= */
+
+function processPayroll(amount) {
+
+    let remaining = amount;
+
+
+    const fromPayroll =
+        Math.min(
+            state.categories.payroll,
+            remaining
+        );
+
+    state.categories.payroll -=
+        fromPayroll;
+
+    remaining -= fromPayroll;
+
+
+    const fromReserves =
+        Math.min(
+            state.categories.reserves,
+            remaining
+        );
+
+    state.categories.reserves -=
+        fromReserves;
+
+    remaining -= fromReserves;
+
+
+    let reputationPenalty = 0;
+
+
+    if (remaining > 0) {
+
+        reputationPenalty = 5;
+
+        adjustReputation(-5);
+    }
+
+
+    return {
+
+        amount,
+
+        fromPayroll,
+
+        fromReserves,
+
+        shortfall: remaining,
+
+        reputationPenalty
+    };
+}
+
+
+/* =========================================================
+   PAY OTHER COSTS
+   ========================================================= */
+
+function payFromReservesThenRevenue(amount) {
+
+    let remaining = amount;
+
+
+    const fromReserves =
+        Math.min(
+            state.categories.reserves,
+            remaining
+        );
+
+    state.categories.reserves -=
+        fromReserves;
+
+    remaining -= fromReserves;
+
+
+    const fromRevenue =
+        Math.min(
+            state.availableRevenue,
+            remaining
+        );
+
+    state.availableRevenue -=
+        fromRevenue;
+
+    remaining -= fromRevenue;
+
+
+    return {
+
+        amount,
+
+        fromReserves,
+
+        fromRevenue,
+
+        shortfall: remaining
+    };
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+function progressPercent() {
+
+    return Math.min(
+        100,
+        Math.round(
+            (
+                state.stage /
+                (TOTAL_STAGES - 1)
+            ) * 100
+        )
+    );
+}
+
+
+function headerHTML() {
+
+    return `
+        <header class="top-header">
+
+            <div class="top-header-inner">
+
+                <div class="game-label">
+                    Small Business Simulation
+                </div>
+
+                <h1>
+                    $100K Startup Budget:
+                    Cupcakes &amp; Shakes
+                </h1>
+
+                <div class="progress-wrap">
+
+                    <div class="progress-track">
+
+                        <div
+                            class="progress-bar"
+                            style="width:${progressPercent()}%">
+                        </div>
+
+                    </div>
+
+                    <div class="progress-text">
+                        Simulation progress:
+                        ${progressPercent()}%
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+    `;
+}
+
+
+/* =========================================================
+   RUNNING SCORE
+   ALWAYS SHOWN
+   ========================================================= */
+
+function statusHTML() {
+
+    return `
+        <div class="status-wrap">
+
+            <div class="status-bar">
+
+                <div class="status-card rep">
+
+                    <span>
+                        Reputation
+                    </span>
+
+                    <strong>
+                        ${state.reputation} pts
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Total Revenue
+                    </span>
+
+                    <strong>
+                        ${money(state.totalRevenue)}
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Owner Payout
+                    </span>
+
+                    <strong>
+                        ${money(state.ownerPayout)}
+                    </strong>
+
+                </div>
+
+
+                <div class="status-card">
+
+                    <span>
+                        Unallocated Revenue
+                    </span>
+
+                    <strong>
+                        ${money(state.availableRevenue)}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   CURRENT BUDGET
+   ALWAYS SHOWN
+   ========================================================= */
+
+function balancePanelHTML() {
+
+    return `
+        <section class="business-dashboard">
+
+            <div class="dashboard-heading">
+
+                <h3>
+                    Current Business Budget
+                </h3>
+
+                <div class="dashboard-total">
+                    Total in Budget Categories:
+                    <strong>
+                        ${money(sumCategories())}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="balance-grid">
+
+                ${CATEGORY_META.map(cat => `
+
+                    <div class="balance-item">
+
+                        <span>
+                            ${cat.label}
+                        </span>
+
+                        <strong>
+                            ${money(
+                                state.categories[cat.key]
+                            )}
+                        </strong>
+
+                    </div>
+
+                `).join("")}
+
+
+                <div class="balance-item revenue-box">
+
+                    <span>
+                        Unallocated Revenue
+                    </span>
+
+                    <strong>
+                        ${money(
+                            state.availableRevenue
+                        )}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+    `;
+}
+
+
+/* =========================================================
+   PAGE SHELL
+   EVERY PAGE GETS:
+   - RUNNING SCORE
+   - CURRENT BUDGET
+   ========================================================= */
+
+function pageShell(content) {
+
+    return `
+
+        ${headerHTML()}
+
+        ${statusHTML()}
+
+
+        <main class="page-content">
+
+            ${balancePanelHTML()}
+
+            ${content}
+
+        </main>
+
+
+        <div class="footer-controls">
+
+            <button
+                class="reset-link"
+                onclick="resetGame()">
+
+                Restart Simulation
+
+            </button>
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+function goToStage(stage) {
+
+    state.stage = stage;
+
+    persist();
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    render();
+}
+
+
+function nextStage() {
+
+    goToStage(
+        state.stage + 1
+    );
+}
+
+
+/* =========================================================
+   AUTOMATIC SCENARIO RESULTS
+   ========================================================= */
+
+function applyStageEvent() {
+
+    const s =
+        state.stage;
+
+
+    if (state.applied[s]) {
+        return;
+    }
+
+
+    /* =====================================================
+       PAGE 2 - GRAND OPENING
+       ===================================================== */
+
+    if (s === 1) {
+
+        if (
+            state.categories.inventory >=
+            20000
+        ) {
+
+            state.categories.inventory -=
+                20000;
+
+            earnRevenue(45000);
+
+            adjustReputation(5);
+
+
+            state.events.grandOpening = {
+
+                success: true,
+
+                revenue: 45000,
+
+                repChange: 5
+            };
+
+        } else {
+
+            state.categories.inventory =
+                0;
+
+            earnRevenue(22000);
+
+            adjustReputation(-20);
+
+
+            state.events.grandOpening = {
+
+                success: false,
+
+                revenue: 22000,
+
+                repChange: -20
+            };
+        }
+    }
+
+
+    /* =====================================================
+       FIRST PAYROLL
+       ===================================================== */
+
+    if (s === 2) {
+
+        state.events.payroll1 =
+            processPayroll(10000);
+    }
+
+
+    /* =====================================================
+       MARKETING RESULT + PAYROLL
+       ===================================================== */
+
+    if (s === 4) {
+
+        if (
+            state.marketingChoice ===
+            "campaign"
+        ) {
+
+            state.categories.marketing -=
+                8000;
+
+            earnRevenue(32000);
+
+            adjustReputation(5);
+
+
+            state.events.marketingResult = {
+
+                campaign: true,
+
+                revenue: 32000,
+
+                repChange: 5
+            };
+
+        } else {
+
+            earnRevenue(20000);
+
+
+            state.events.marketingResult = {
+
+                campaign: false,
+
+                revenue: 20000,
+
+                repChange: 0
+            };
+        }
+
+
+        state.events.payroll2 =
+            processPayroll(10000);
+    }
+
+
+    /* =====================================================
+       EQUIPMENT RESULT
+       ===================================================== */
+
+    if (s === 7) {
+
+        if (
+            state.initialEquipmentInvestment >=
+            18000
+        ) {
+
+            earnRevenue(31000);
+
+
+            state.events.equipmentResult = {
+
+                type: "protected",
+
+                revenue: 31000,
+
+                repChange: 0
+            };
+
+        }
+
+        else if (
+            state.equipmentChoice ===
+            "replace"
+        ) {
+
+            state.categories.reserves -=
+                7500;
+
+            earnRevenue(27000);
+
+            adjustReputation(-1);
+
+
+            state.events.equipmentResult = {
+
+                type: "replace",
+
+                revenue: 27000,
+
+                repChange: -1
+            };
+
+        }
+
+        else {
+
+            earnRevenue(19000);
+
+            adjustReputation(-8);
+
+
+            state.events.equipmentResult = {
+
+                type: "wait",
+
+                revenue: 19000,
+
+                repChange: -8
+            };
+        }
+    }
+
+
+    /* =====================================================
+       HOLIDAY PAYROLL
+       ===================================================== */
+
+    if (s === 8) {
+
+        state.events.holidayPayroll =
+            processPayroll(15000);
+    }
+
+
+    /* =====================================================
+       CHILD'S CAR
+       ===================================================== */
+
+    if (s === 9) {
+
+        const ownerFunds =
+            state.lastMonthOwnerPayout;
+
+
+        const neededFromBusiness =
+            Math.max(
+                0,
+                5000 - ownerFunds
+            );
+
+
+        let reserveUsed = 0;
+
+        let shortfall = 0;
+
+
+        if (
+            neededFromBusiness > 0
+        ) {
+
+            reserveUsed =
+                Math.min(
+                    state.categories.reserves,
+                    neededFromBusiness
+                );
+
+
+            state.categories.reserves -=
+                reserveUsed;
+
+
+            shortfall =
+                neededFromBusiness -
+                reserveUsed;
+        }
+
+
+        if (shortfall > 0) {
+
+            adjustReputation(-2);
+        }
+
+
+        state.events.car = {
+
+            ownerMoney:
+                Math.min(
+                    5000,
+                    ownerFunds
+                ),
+
+            reserveUsed,
+
+            shortfall,
+
+            repChange:
+                shortfall > 0
+                ? -2
+                : 0
+        };
+    }
+
+
+    /* =====================================================
+       NORMAL PAYROLL
+       ===================================================== */
+
+    if (s === 10) {
+
+        state.events.payroll3 =
+            processPayroll(10000);
+    }
+
+
+    /* =====================================================
+       RETIREMENT PARTY RESULT
+       ===================================================== */
+
+    if (s === 13) {
+
+        if (
+            state.retirementChoice ===
+            "accept" &&
+            state.categories.inventory >=
+            12000
+        ) {
+
+            state.categories.inventory -=
+                12000;
+
+            earnRevenue(35000);
+
+            adjustReputation(10);
+
+
+            state.events.retirement = {
+
+                type: "success",
+
+                revenue: 35000,
+
+                repChange: 10
+            };
+
+        }
+
+        else if (
+            state.retirementChoice ===
+            "accept"
+        ) {
+
+            state.categories.inventory =
+                0;
+
+            earnRevenue(16000);
+
+            adjustReputation(-15);
+
+
+            state.events.retirement = {
+
+                type: "short",
+
+                revenue: 16000,
+
+                repChange: -15
+            };
+
+        }
+
+        else {
+
+            adjustReputation(-3);
+
+
+            state.events.retirement = {
+
+                type: "decline",
+
+                revenue: 0,
+
+                repChange: -3
+            };
+        }
+    }
+
+
+    /* =====================================================
+       PAYROLL
+       ===================================================== */
+
+    if (s === 14) {
+
+        state.events.payroll4 =
+            processPayroll(10000);
+    }
+
+
+    /* =====================================================
+       CUSTOMER ACCIDENT RESULT
+       ===================================================== */
+
+    if (s === 16) {
+
+        const attorneyCost =
+            state.attorneyChoice ===
+            "expensive"
+            ? 10000
+            : 2000;
+
+
+        const attorneyPayment =
+            payFromReservesThenRevenue(
+                attorneyCost
+            );
+
+
+        let deductible;
+
+
+        if (
+            state.categories.insurance >=
+            15000
+        ) {
+
+            deductible = 1500;
+
+        }
+
+        else if (
+            state.categories.insurance >=
+            8000
+        ) {
+
+            deductible = 7500;
+
+        }
+
+        else {
+
+            deductible = 18000;
+        }
+
+
+        const originalDeductible =
+            deductible;
+
+
+        if (
+            state.attorneyChoice ===
+            "expensive"
+        ) {
+
+            deductible =
+                Math.round(
+                    deductible / 2
+                );
+        }
+
+
+        const claimPayment =
+            payFromReservesThenRevenue(
+                deductible
+            );
+
+
+        state.events.accident = {
+
+            attorneyCost,
+
+            attorneyPayment,
+
+            baseDeductible:
+                originalDeductible,
+
+            finalDeductible:
+                deductible,
+
+            claimPayment,
+
+            insuranceLevel:
+
+                state.categories.insurance >=
+                15000
+                ? "Full coverage"
+
+                : state.categories.insurance >=
+                  8000
+                ? "Limited coverage"
+
+                : "Poor or no coverage"
+        };
+    }
+
+
+    /* =====================================================
+       PAYROLL AFTER ACCIDENT
+       ===================================================== */
+
+    if (s === 17) {
+
+        state.events.payroll5 =
+            processPayroll(10000);
+    }
+
+
+    /* =====================================================
+       EMPLOYEE PROBLEM RESULT
+       ===================================================== */
+
+    if (s === 19) {
+
+        if (
+            state.employeeChoice ===
+            "hire"
+        ) {
+
+            const payment =
+                payFromReservesThenRevenue(
+                    2500
+                );
+
+
+            state.events.employeeImpact = {
+
+                type: "hire",
+
+                recruitmentCost: 2500,
+
+                payment,
+
+                repChange: 0
+            };
+
+        }
+
+        else {
+
+            adjustReputation(3);
+
+
+            state.events.employeeImpact = {
+
+                type: "owner",
+
+                recruitmentCost: 0,
+
+                repChange: 3
+            };
+        }
+    }
+
+
+    /* =====================================================
+       EMPLOYEE PAYROLL
+       ===================================================== */
+
+    if (s === 20) {
+
+        const payrollAmount =
+
+            state.employeeChoice ===
+            "owner"
+
+            ? 8000
+
+            : 10000;
+
+
+        state.events.payroll6 =
+            processPayroll(
+                payrollAmount
+            );
+
+
+        /*
+        Owner covered shifts:
+        - no owner payout
+        - no rebudgeting
+        - revenue split evenly
+        */
+
+        if (
+            state.employeeChoice ===
+            "owner"
+        ) {
+
+            const amount =
+                state.availableRevenue;
+
+
+            const keys =
+                CATEGORY_META.map(
+                    c => c.key
+                );
+
+
+            const baseShare =
+                Math.floor(
+                    amount /
+                    keys.length
+                );
+
+
+            let remainder =
+                amount -
+                (
+                    baseShare *
+                    keys.length
+                );
+
+
+            const distribution = {};
+
+
+            keys.forEach(key => {
+
+                let add =
+                    baseShare;
+
+
+                if (
+                    remainder > 0
+                ) {
+
+                    add += 1;
+
+                    remainder -= 1;
+                }
+
+
+                state.categories[key] +=
+                    add;
+
+
+                distribution[key] =
+                    add;
+            });
+
+
+            state.availableRevenue =
+                0;
+
+
+            state.events.ownerAutoAllocation = {
+
+                amount,
+
+                distribution
+            };
+        }
+    }
+
+
+    /* =====================================================
+       SUMMER EXPANSION RESULT
+       ===================================================== */
+
+    if (s === 22) {
+
+        if (
+            state.expansionChoice ===
+            "open"
+        ) {
+
+            state.categories.location -=
+                20000;
+
+            earnRevenue(50000);
+
+            adjustReputation(10);
+
+
+            state.events.expansion = {
+
+                type: "open",
+
+                revenue: 50000,
+
+                repChange: 10
+            };
+
+        }
+
+        else {
+
+            earnRevenue(22000);
+
+
+            state.events.expansion = {
+
+                type: "stay",
+
+                revenue: 22000,
+
+                repChange: 0
+            };
+        }
+    }
+
+
+    /* =====================================================
+       FINAL PAYROLL
+       ===================================================== */
+
+    if (s === 23) {
+
+        state.events.finalPayroll =
+            processPayroll(10000);
+    }
+
+
+    state.applied[s] = true;
+
+    persist();
+}
+
+
+/* =========================================================
+   PAYROLL RESULT DISPLAY
+   ========================================================= */
+
+function payrollResultHTML(result) {
+
+    const short =
+        result.shortfall > 0;
+
+
+    return `
+        <div class="callout ${
+            short
+            ? "bad"
+            : "good"
+        }">
+
+            <h3>
+                ${
+                    short
+                    ? "Payroll Was Not Fully Covered"
+                    : "Payroll Processed Successfully"
+                }
+            </h3>
+
+
+            <p>
+                Payroll due:
+                <strong>
+                    ${money(result.amount)}
+                </strong>
+            </p>
+
+
+            <p>
+                Paid from Payroll:
+                <strong>
+                    ${money(
+                        result.fromPayroll
+                    )}
+                </strong>
+            </p>
+
+
+            <p>
+                Paid from Cash Reserves:
+                <strong>
+                    ${money(
+                        result.fromReserves
+                    )}
+                </strong>
+            </p>
+
+
+            ${
+                short
+                ? `
+                    <p>
+                        Remaining shortfall:
+                        <strong>
+                            ${money(
+                                result.shortfall
+                            )}
+                        </strong>
+                    </p>
+
+                    <p>
+                        Employees were not paid
+                        completely on time.
+                        Word begins spreading among
+                        employees.
+
+                        <strong>
+                            Reputation –5.
+                        </strong>
+                    </p>
+                `
+                : `
+                    <p>
+                        Everyone was paid on time.
+                        There is no reputation penalty.
+                    </p>
+                `
+            }
+
+        </div>
+    `;
+}
+
+
+/* =========================================================
+   PAGE 1
+   INITIAL STARTUP BUDGET
+   ========================================================= */
+
+function renderStage0() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Welcome to the Simulation
+        </div>
+
+        <h2>
+            You Have $100,000 to Start
+            Cupcakes &amp; Shakes
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="lead">
+
+            You are opening a new dessert business
+            called
+            <strong>
+                Cupcakes &amp; Shakes
+            </strong>.
+
+            You have exactly
+            <strong>$100,000</strong>
+            available to launch the business.
+
+        </p>
+
+
+        <div class="scenario">
+
+            <h3>
+                Your Goal
+            </h3>
+
+
+            <p>
+                Your success will be measured
+                in three areas:
+            </p>
+
+
+            <ul>
+
+                <li>
+                    <strong>Reputation:</strong>
+                    How customers, employees,
+                    and the community view the business.
+                </li>
+
+                <li>
+                    <strong>Revenue:</strong>
+                    How much sales revenue the business
+                    generates. To simplify the simulation,
+                    we are focusing on revenue rather than
+                    profit.
+                </li>
+
+                <li>
+                    <strong>Owner Payout:</strong>
+                    How much money you choose to take
+                    out of the business for yourself.
+                </li>
+
+            </ul>
+
+
+            <p>
+                You begin with
+                <strong>50 Reputation Points</strong>,
+                <strong>$0 Revenue</strong>,
+                and
+                <strong>$0 Owner Payout</strong>.
+            </p>
+
+        </div>
+
+
+        <h3>
+            Startup Budget Categories
+        </h3>
+
+
+        <p>
+            You may distribute the $100,000 however
+            you want. You can invest heavily in one
+            category, divide it evenly, or even invest
+            <strong>$0</strong> in a category.
+        </p>
+
+
+        <p>
+            Your decisions will affect what happens
+            later in the simulation.
+        </p>
+
+
+        <div class="category-grid">
+
+            ${CATEGORY_META.map(cat => `
+
+                <div class="category-card">
+
+                    <h3>
+                        ${cat.label}
+                    </h3>
+
+                    <p>
+                        ${cat.description}
+                    </p>
+
+                </div>
+
+            `).join("")}
+
+        </div>
+
+
+        <div class="budget-form">
+
+            <div class="form-title">
+
+                <h3>
+                    Build Your $100,000 Startup Budget
+                </h3>
+
+                <p>
+                    Your allocations must add up
+                    to exactly $100,000.
+                </p>
+
+            </div>
+
+
+            <div class="form-body">
+
+                ${CATEGORY_META.map(cat => `
+
+                    <div class="money-row">
+
+                        <label>
+                            ${cat.label}
+                        </label>
+
+
+                        <div class="money-input-wrap">
+
+                            <input
+                                class="money-input"
+                                id="initial_${cat.key}"
+                                type="number"
+                                min="0"
+                                step="500"
+                                value="0"
+                                oninput="updateInitialTotal()">
+
+                        </div>
+
+                    </div>
+
+                `).join("")}
+
+
+                <div
+                    id="initialTotalBox"
+                    class="total-box">
+
+                    <span>
+                        Total Allocated
+                    </span>
+
+                    <strong
+                        id="initialTotal">
+
+                        $0
+
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="initialError"
+                    class="error-box">
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        class="primary"
+                        onclick="submitInitialBudget()">
+
+                        Start the Business
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `);
+}
+
+
+function updateInitialTotal() {
+
+    const total =
+
+        CATEGORY_META
+        .map(
+            cat =>
+                readMoney(
+                    "initial_" +
+                    cat.key
+                )
+        )
+        .reduce(
+            (a,b) => a + b,
+            0
+        );
+
+
+    document
+        .getElementById(
+            "initialTotal"
+        )
+        .textContent =
+            money(total);
+
+
+    const box =
+        document.getElementById(
+            "initialTotalBox"
+        );
+
+
+    box.classList.remove(
+        "good",
+        "over"
+    );
+
+
+    if (
+        total ===
+        STARTING_BUDGET
+    ) {
+
+        box.classList.add(
+            "good"
+        );
+    }
+
+
+    if (
+        total >
+        STARTING_BUDGET
+    ) {
+
+        box.classList.add(
+            "over"
+        );
+    }
+}
+
+
+function submitInitialBudget() {
+
+    const allocations = {};
+
+    let total = 0;
+
+
+    CATEGORY_META.forEach(cat => {
+
+        allocations[cat.key] =
+            readMoney(
+                "initial_" +
+                cat.key
+            );
+
+
+        total +=
+            allocations[
+                cat.key
+            ];
+    });
+
+
+    if (
+        total !==
+        STARTING_BUDGET
+    ) {
+
+        showError(
+            "initialError",
+
+            "Your startup budget must equal exactly $100,000. You currently allocated " +
+            money(total) +
+            "."
+        );
+
+        return;
+    }
+
+
+    state.categories =
+        allocations;
+
+
+    state.initialEquipmentInvestment =
+        allocations.equipment;
+
+
+    persist();
+
+    goToStage(1);
+}
+
+
+/* =========================================================
+   ALLOCATE CASH RESERVES + REVENUE
+   ========================================================= */
+
+function flexibleAllocatorHTML(
+    prefix,
+    heading,
+    description
+) {
+
+    const pool =
+        state.categories.reserves +
+        state.availableRevenue;
+
+
+    return `
+        <div class="budget-form">
+
+            <div class="form-title">
+
+                <h3>
+                    ${heading}
+                </h3>
+
+                <p>
+                    ${description}
+                </p>
+
+            </div>
+
+
+            <div class="form-body">
+
+
+                <div class="callout info">
+
+                    Flexible funds available:
+                    <strong>
+                        ${money(pool)}
+                    </strong>
+
+                    <br><br>
+
+                    Cash Reserves:
+                    <strong>
+                        ${money(
+                            state.categories.reserves
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Unallocated Revenue:
+                    <strong>
+                        ${money(
+                            state.availableRevenue
+                        )}
+                    </strong>
+
+                </div>
+
+
+                ${CATEGORY_META
+                    .filter(
+                        cat =>
+                            cat.key !==
+                            "reserves"
+                    )
+                    .map(cat => `
+
+                        <div class="money-row">
+
+                            <label>
+                                Add to
+                                ${cat.label}
+                            </label>
+
+                            <div class="money-input-wrap">
+
+                                <input
+                                    class="money-input"
+                                    id="${prefix}_${cat.key}"
+                                    type="number"
+                                    min="0"
+                                    value="0"
+                                    oninput="updateFlexibleTotal('${prefix}')">
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+
+                <div class="money-row">
+
+                    <label>
+                        Keep in Cash Reserves
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_reserves"
+                            type="number"
+                            min="0"
+                            value="${state.categories.reserves}"
+                            oninput="updateFlexibleTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div class="money-row">
+
+                    <label>
+
+                        Pay to Owner
+
+                        <small>
+                            This money leaves the business
+                            and counts toward Owner Payout.
+                        </small>
+
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_owner"
+                            type="number"
+                            min="0"
+                            value="0"
+                            oninput="updateFlexibleTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div class="money-row">
+
+                    <label>
+
+                        Keep as Unallocated Revenue
+
+                        <small>
+                            Keep this money available
+                            for future expenses.
+                        </small>
+
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_revenue"
+                            type="number"
+                            min="0"
+                            value="${state.availableRevenue}"
+                            oninput="updateFlexibleTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="total-box"
+                    id="${prefix}_totalBox">
+
+                    <span>
+                        Funds Assigned
+                    </span>
+
+                    <strong
+                        id="${prefix}_total">
+
+                        ${money(pool)}
+
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="error-box"
+                    id="${prefix}_error">
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function updateFlexibleTotal(
+    prefix
+) {
+
+    let total = 0;
+
+
+    CATEGORY_META
+    .filter(
+        cat =>
+            cat.key !==
+            "reserves"
+    )
+    .forEach(cat => {
+
+        total +=
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+    });
+
+
+    total +=
+        readMoney(
+            prefix +
+            "_reserves"
+        );
+
+
+    total +=
+        readMoney(
+            prefix +
+            "_owner"
+        );
+
+
+    total +=
+        readMoney(
+            prefix +
+            "_revenue"
+        );
+
+
+    document
+        .getElementById(
+            prefix +
+            "_total"
+        )
+        .textContent =
+            money(total);
+
+
+    const pool =
+        state.categories.reserves +
+        state.availableRevenue;
+
+
+    const box =
+        document.getElementById(
+            prefix +
+            "_totalBox"
+        );
+
+
+    box.classList.remove(
+        "good",
+        "over"
+    );
+
+
+    if (
+        total === pool
+    ) {
+
+        box.classList.add(
+            "good"
+        );
+    }
+
+
+    if (
+        total > pool
+    ) {
+
+        box.classList.add(
+            "over"
+        );
+    }
+}
+
+
+function submitFlexibleAllocation(
+    prefix,
+    next
+) {
+
+    const pool =
+        state.categories.reserves +
+        state.availableRevenue;
+
+
+    let total = 0;
+
+    const additions = {};
+
+
+    CATEGORY_META
+    .filter(
+        cat =>
+            cat.key !==
+            "reserves"
+    )
+    .forEach(cat => {
+
+        additions[cat.key] =
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+
+
+        total +=
+            additions[
+                cat.key
+            ];
+    });
+
+
+    const reserves =
+        readMoney(
+            prefix +
+            "_reserves"
+        );
+
+
+    const owner =
+        readMoney(
+            prefix +
+            "_owner"
+        );
+
+
+    const revenue =
+        readMoney(
+            prefix +
+            "_revenue"
+        );
+
+
+    total +=
+        reserves +
+        owner +
+        revenue;
+
+
+    if (
+        total !== pool
+    ) {
+
+        showError(
+
+            prefix +
+            "_error",
+
+            "You must account for all " +
+            money(pool) +
+            " of your available funds."
+        );
+
+        return;
+    }
+
+
+    Object.keys(
+        additions
+    ).forEach(key => {
+
+        state.categories[key] +=
+            additions[key];
+    });
+
+
+    state.categories.reserves =
+        reserves;
+
+
+    state.availableRevenue =
+        revenue;
+
+
+    addOwnerPayout(owner);
+
+
+    persist();
+
+    goToStage(next);
+}
+
+
+/* =========================================================
+   GRAND OPENING
+   ========================================================= */
+
+function renderStage1() {
+
+    const result =
+        state.events.grandOpening;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            First Two Weeks
+        </div>
+
+        <h2>
+            Grand Opening Rush
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                Cupcakes &amp; Shakes has been
+                all over local social media.
+
+                For the first two weeks,
+                customers are lined up
+                out the door.
+
+            </p>
+
+        </div>
+
+
+        ${
+            result.success
+
+            ? `
+                <div class="callout good">
+
+                    <h3>
+                        You Were Ready for the Rush
+                    </h3>
+
+
+                    <p>
+                        You invested at least
+                        <strong>$20,000</strong>
+                        in Inventory.
+                    </p>
+
+
+                    <p>
+                        You had enough ingredients,
+                        cups, toppings, packaging,
+                        and supplies to keep serving.
+                    </p>
+
+
+                    <p>
+                        Revenue:
+                        <strong>
+                            +$45,000
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            +5
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Inventory used:
+                        <strong>
+                            –$20,000
+                        </strong>
+                    </p>
+
+                </div>
+            `
+
+            : `
+                <div class="callout bad">
+
+                    <h3>
+                        You Ran Out of Product
+                    </h3>
+
+
+                    <p>
+                        You invested less than
+                        <strong>$20,000</strong>
+                        in Inventory.
+                    </p>
+
+
+                    <p>
+                        The business ran out of
+                        ingredients, cups, toppings,
+                        packaging, or other supplies.
+                        Customers had to be turned away.
+                    </p>
+
+
+                    <p>
+                        Revenue:
+                        <strong>
+                            +$22,000
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            –20
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Inventory:
+                        <strong>
+                            $0 remaining
+                        </strong>
+                    </p>
+
+                </div>
+            `
+        }
+
+
+        <div class="callout info">
+
+            <strong>
+                Business Lesson:
+            </strong>
+
+            Sales demand means little
+            if the business cannot fulfill
+            customer demand.
+
+        </div>
+
+
+        ${flexibleAllocatorHTML(
+            "opening",
+            "Use Your New Revenue",
+            "Before moving on, you may use Cash Reserves and/or revenue to strengthen other categories. You may also pay some money to the owner."
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitFlexibleAllocation('opening',2)">
+
+                Save Allocation &amp; Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   CASH RESERVE REALLOCATION
+   ========================================================= */
+
+function reservesOnlyHTML(
+    prefix
+) {
+
+    const pool =
+        state.categories.reserves;
+
+
+    return `
+        <div class="budget-form">
+
+            <div class="form-title">
+
+                <h3>
+                    Optional Cash Reserve Reallocation
+                </h3>
+
+                <p>
+                    Before continuing, you may move
+                    Cash Reserves into another category.
+                </p>
+
+            </div>
+
+
+            <div class="form-body">
+
+
+                <div class="callout info">
+
+                    Cash Reserves available:
+                    <strong>
+                        ${money(pool)}
+                    </strong>
+
+                </div>
+
+
+                ${CATEGORY_META
+                    .filter(
+                        cat =>
+                            cat.key !==
+                            "reserves"
+                    )
+                    .map(cat => `
+
+                        <div class="money-row">
+
+                            <label>
+                                Move to
+                                ${cat.label}
+                            </label>
+
+                            <div class="money-input-wrap">
+
+                                <input
+                                    class="money-input"
+                                    id="${prefix}_${cat.key}"
+                                    type="number"
+                                    min="0"
+                                    value="0"
+                                    oninput="updateReserveOnlyTotal('${prefix}')">
+
+                            </div>
+
+                        </div>
+
+                    `).join("")}
+
+
+                <div class="money-row">
+
+                    <label>
+                        Leave in Cash Reserves
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_reserves"
+                            type="number"
+                            min="0"
+                            value="${pool}"
+                            oninput="updateReserveOnlyTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="total-box"
+                    id="${prefix}_totalBox">
+
+                    <span>
+                        Funds Assigned
+                    </span>
+
+                    <strong
+                        id="${prefix}_total">
+
+                        ${money(pool)}
+
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="error-box"
+                    id="${prefix}_error">
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function updateReserveOnlyTotal(
+    prefix
+) {
+
+    let total =
+        readMoney(
+            prefix +
+            "_reserves"
+        );
+
+
+    CATEGORY_META
+    .filter(
+        cat =>
+            cat.key !==
+            "reserves"
+    )
+    .forEach(cat => {
+
+        total +=
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+    });
+
+
+    document
+        .getElementById(
+            prefix +
+            "_total"
+        )
+        .textContent =
+            money(total);
+
+
+    const pool =
+        state.categories.reserves;
+
+
+    const box =
+        document.getElementById(
+            prefix +
+            "_totalBox"
+        );
+
+
+    box.classList.remove(
+        "good",
+        "over"
+    );
+
+
+    if (
+        total === pool
+    ) {
+
+        box.classList.add(
+            "good"
+        );
+    }
+
+
+    if (
+        total > pool
+    ) {
+
+        box.classList.add(
+            "over"
+        );
+    }
+}
+
+
+function submitReserveOnly(
+    prefix,
+    next
+) {
+
+    const pool =
+        state.categories.reserves;
+
+
+    let total = 0;
+
+    const moves = {};
+
+
+    CATEGORY_META
+    .filter(
+        cat =>
+            cat.key !==
+            "reserves"
+    )
+    .forEach(cat => {
+
+        moves[cat.key] =
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+
+
+        total +=
+            moves[
+                cat.key
+            ];
+    });
+
+
+    const reserves =
+        readMoney(
+            prefix +
+            "_reserves"
+        );
+
+
+    total += reserves;
+
+
+    if (
+        total !== pool
+    ) {
+
+        showError(
+
+            prefix +
+            "_error",
+
+            "You must account for all " +
+            money(pool) +
+            " currently in Cash Reserves."
+        );
+
+        return;
+    }
+
+
+    Object.keys(
+        moves
+    ).forEach(key => {
+
+        state.categories[key] +=
+            moves[key];
+    });
+
+
+    state.categories.reserves =
+        reserves;
+
+
+    persist();
+
+    goToStage(next);
+}
+
+
+/* =========================================================
+   FIRST PAYROLL
+   ========================================================= */
+
+function renderStage2() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Payroll Day
+        </div>
+
+        <h2>
+            Your First Payroll Is Due Tomorrow
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p>
+                Employees are paid every
+                two weeks.
+            </p>
+
+            <p class="big-number">
+                Payroll Due: $10,000
+            </p>
+
+            <p>
+                Payroll comes from the
+                <strong>Payroll category first</strong>.
+
+                If that category does not
+                contain enough money, the rest
+                automatically comes from
+                <strong>Cash Reserves</strong>.
+            </p>
+
+        </div>
+
+
+        ${payrollResultHTML(
+            state.events.payroll1
+        )}
+
+
+        ${reservesOnlyHTML(
+            "payroll1move"
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitReserveOnly('payroll1move',3)">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   MARKETING CHOICE
+   ========================================================= */
+
+function renderStage3() {
+
+    const canCampaign =
+        state.categories.marketing >=
+        8000;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Weeks 3–4
+        </div>
+
+        <h2>
+            The Grand Opening Hype Fades
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                The grand-opening excitement
+                is over.
+
+                Foot traffic has slowed and
+                customers have begun returning
+                to their normal routines.
+
+            </p>
+
+
+            <p>
+                You need repeat customers,
+                not just curious first-time
+                visitors.
+            </p>
+
+        </div>
+
+
+        <h3>
+            What will you do?
+        </h3>
+
+
+        <div class="decision-grid">
+
+
+            <button
+                class="decision"
+                id="marketingCampaignBtn"
+                ${canCampaign ? "" : "disabled"}
+                onclick="selectMarketing('campaign')">
+
+                <strong>
+                    Run a Strong Local Campaign
+                </strong>
+
+                <span>
+                    Cost: $8,000 from Marketing.
+
+                    ${
+                        canCampaign
+                        ? ""
+                        : "<br><br><strong>You do not have $8,000 in Marketing.</strong>"
+                    }
+                </span>
+
+            </button>
+
+
+            <button
+                class="decision"
+                id="marketingSaveBtn"
+                onclick="selectMarketing('save')">
+
+                <strong>
+                    Save the Marketing Money
+                </strong>
+
+                <span>
+                    Cost: $0.
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="marketingError"
+            class="error-box">
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitMarketingChoice()">
+
+                Lock In Decision
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+function selectMarketing(
+    choice
+) {
+
+    state.marketingChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "campaign"
+
+        ? "marketingCampaignBtn"
+
+        : "marketingSaveBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitMarketingChoice() {
+
+    if (
+        !state.marketingChoice
+    ) {
+
+        showError(
+            "marketingError",
+            "Choose whether to run the campaign or save the money."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(4);
+}
+
+
+/* =========================================================
+   MARKETING RESULT
+   ========================================================= */
+
+function renderStage4() {
+
+    const marketing =
+        state.events.marketingResult;
+
+
+    const payroll =
+        state.events.payroll2;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            End of Month 1
+        </div>
+
+        <h2>
+            Your Marketing Decision
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${
+            marketing.campaign
+
+            ? `
+                <div class="callout good">
+
+                    <h3>
+                        The Campaign Worked
+                    </h3>
+
+                    <p>
+                        Marketing:
+                        <strong>
+                            –$8,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        Revenue:
+                        <strong>
+                            +$32,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            +5
+                        </strong>
+                    </p>
+
+                </div>
+            `
+
+            : `
+                <div class="callout info">
+
+                    <h3>
+                        You Saved the Marketing Money
+                    </h3>
+
+                    <p>
+                        Marketing spending:
+                        <strong>
+                            $0
+                        </strong>
+                    </p>
+
+                    <p>
+                        Revenue:
+                        <strong>
+                            +$20,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            No change
+                        </strong>
+                    </p>
+
+                </div>
+            `
+        }
+
+
+        <h3>
+            Payroll Is Due Again
+        </h3>
+
+
+        ${payrollResultHTML(
+            payroll
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Finish Month 1
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   FULL REBUDGET
+   ========================================================= */
+
+function fullRebudgetHTML(
+    prefix,
+    heading,
+    description
+) {
+
+    const pool =
+        sumCategories() +
+        state.availableRevenue;
+
+
+    return `
+        <div class="budget-form">
+
+            <div class="form-title">
+
+                <h3>
+                    ${heading}
+                </h3>
+
+                <p>
+                    ${description}
+                </p>
+
+            </div>
+
+
+            <div class="form-body">
+
+                <div class="callout info">
+
+                    Total money currently available
+                    to budget:
+
+                    <strong>
+                        ${money(pool)}
+                    </strong>
+
+                    <br><br>
+
+                    At month end, money may be moved
+                    from any category into any other
+                    category.
+
+                </div>
+
+
+                ${CATEGORY_META.map(cat => `
+
+                    <div class="money-row">
+
+                        <label>
+                            ${cat.label}
+                        </label>
+
+                        <div class="money-input-wrap">
+
+                            <input
+                                class="money-input"
+                                id="${prefix}_${cat.key}"
+                                type="number"
+                                min="0"
+                                value="${state.categories[cat.key]}"
+                                oninput="updateFullRebudgetTotal('${prefix}')">
+
+                        </div>
+
+                    </div>
+
+                `).join("")}
+
+
+                <div class="money-row">
+
+                    <label>
+
+                        Pay to Owner
+
+                        <small>
+                            This money leaves the business.
+                        </small>
+
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_owner"
+                            type="number"
+                            min="0"
+                            value="0"
+                            oninput="updateFullRebudgetTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div class="money-row">
+
+                    <label>
+                        Keep as Unallocated Revenue
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="${prefix}_revenue"
+                            type="number"
+                            min="0"
+                            value="${state.availableRevenue}"
+                            oninput="updateFullRebudgetTotal('${prefix}')">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="total-box"
+                    id="${prefix}_totalBox">
+
+                    <span>
+                        Funds Assigned
+                    </span>
+
+                    <strong
+                        id="${prefix}_total">
+
+                        ${money(pool)}
+
+                    </strong>
+
+                </div>
+
+
+                <div
+                    class="error-box"
+                    id="${prefix}_error">
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function updateFullRebudgetTotal(
+    prefix
+) {
+
+    let total = 0;
+
+
+    CATEGORY_META.forEach(cat => {
+
+        total +=
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+    });
+
+
+    total +=
+        readMoney(
+            prefix +
+            "_owner"
+        );
+
+
+    total +=
+        readMoney(
+            prefix +
+            "_revenue"
+        );
+
+
+    document
+        .getElementById(
+            prefix +
+            "_total"
+        )
+        .textContent =
+            money(total);
+
+
+    const pool =
+        sumCategories() +
+        state.availableRevenue;
+
+
+    const box =
+        document.getElementById(
+            prefix +
+            "_totalBox"
+        );
+
+
+    box.classList.remove(
+        "good",
+        "over"
+    );
+
+
+    if (
+        total === pool
+    ) {
+
+        box.classList.add(
+            "good"
+        );
+    }
+
+
+    if (
+        total > pool
+    ) {
+
+        box.classList.add(
+            "over"
+        );
+    }
+}
+
+
+function submitFullRebudget(
+    prefix,
+    next,
+    closeMonth = false
+) {
+
+    const pool =
+        sumCategories() +
+        state.availableRevenue;
+
+
+    const newBudget = {};
+
+    let total = 0;
+
+
+    CATEGORY_META.forEach(cat => {
+
+        newBudget[cat.key] =
+            readMoney(
+                prefix +
+                "_" +
+                cat.key
+            );
+
+
+        total +=
+            newBudget[
+                cat.key
+            ];
+    });
+
+
+    const owner =
+        readMoney(
+            prefix +
+            "_owner"
+        );
+
+
+    const revenue =
+        readMoney(
+            prefix +
+            "_revenue"
+        );
+
+
+    total +=
+        owner +
+        revenue;
+
+
+    if (
+        total !== pool
+    ) {
+
+        showError(
+
+            prefix +
+            "_error",
+
+            "Your new budget must account for all " +
+            money(pool) +
+            " currently available."
+        );
+
+        return;
+    }
+
+
+    state.categories =
+        newBudget;
+
+
+    state.availableRevenue =
+        revenue;
+
+
+    addOwnerPayout(owner);
+
+
+    if (closeMonth) {
+
+        state.lastMonthOwnerPayout =
+            state.currentMonthOwnerPayout;
+
+
+        state.currentMonthOwnerPayout =
+            0;
+    }
+
+
+    persist();
+
+    goToStage(next);
+}
+
+
+/* =========================================================
+   END MONTH 1
+   ========================================================= */
+
+function renderStage5() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Month-End Decision
+        </div>
+
+        <h2>
+            End of Month 1: Rebudget
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="lead">
+            You have completed your first
+            month in business.
+        </p>
+
+
+        <div class="scenario">
+
+            <p>
+                You may now move money from
+                <strong>
+                    any category into any other category.
+                </strong>
+            </p>
+
+            <p>
+                You may also invest revenue,
+                keep it available for later expenses,
+                or pay some money to yourself.
+            </p>
+
+        </div>
+
+
+        ${fullRebudgetHTML(
+            "month1",
+            "Month 1 Rebudget",
+            "Redistribute your money based on what you learned during your first month."
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitFullRebudget('month1',6,true)">
+
+                Finalize Month 1
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   EQUIPMENT FAILURE CHOICE
+   ========================================================= */
+
+function renderStage6() {
+
+    const protectedEquipment =
+        state.initialEquipmentInvestment >=
+        18000;
+
+
+    const canReplace =
+        state.categories.reserves >=
+        7500;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Equipment Challenge
+        </div>
+
+        <h2>
+            Saturday Morning Disaster
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                Saturday morning,
+                one of the busiest days of the week,
+                your primary commercial shake blender
+                overheats.
+
+            </p>
+
+        </div>
+
+
+        ${
+            protectedEquipment
+
+            ? `
+                <div class="callout good">
+
+                    <h3>
+                        Your Original Equipment Investment
+                        Pays Off
+                    </h3>
+
+
+                    <p>
+                        Your original Equipment investment
+                        was
+
+                        <strong>
+                            ${money(
+                                state.initialEquipmentInvestment
+                            )}
+                        </strong>.
+                    </p>
+
+
+                    <p>
+                        Because you originally invested
+                        at least $18,000 in equipment,
+                        your higher-quality commercial
+                        equipment holds up.
+                    </p>
+
+
+                    <p>
+                        You do not have to choose between
+                        emergency replacement and stopping
+                        shake sales.
+                    </p>
+
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        class="primary"
+                        onclick="setProtectedEquipmentAndContinue()">
+
+                        See the Impact
+
+                    </button>
+
+                </div>
+            `
+
+            : `
+                <div class="callout bad">
+
+                    <h3>
+                        The Blender Fails
+                    </h3>
+
+
+                    <p>
+                        Your original Equipment investment
+                        was
+
+                        <strong>
+                            ${money(
+                                state.initialEquipmentInvestment
+                            )}
+                        </strong>.
+                    </p>
+
+
+                    <p>
+                        You now need to decide
+                        how to respond.
+                    </p>
+
+                </div>
+
+
+                <div class="decision-grid">
+
+                    <button
+                        class="decision"
+                        id="replaceBtn"
+                        ${canReplace ? "" : "disabled"}
+                        onclick="selectEquipmentChoice('replace')">
+
+                        <strong>
+                            Emergency Replacement
+                        </strong>
+
+                        <span>
+                            Cost: $7,500 from Cash Reserves.
+
+                            ${
+                                canReplace
+                                ? ""
+                                : "<br><br><strong>You do not have $7,500 in Cash Reserves.</strong>"
+                            }
+                        </span>
+
+                    </button>
+
+
+                    <button
+                        class="decision"
+                        id="waitBtn"
+                        onclick="selectEquipmentChoice('wait')">
+
+                        <strong>
+                            Operate Without Shakes
+                        </strong>
+
+                        <span>
+                            No immediate replacement cost.
+                            Continue selling cupcakes until
+                            a delayed replacement arrives.
+                        </span>
+
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="equipmentError"
+                    class="error-box">
+                </div>
+
+
+                <div class="button-row">
+
+                    <button
+                        class="primary"
+                        onclick="submitEquipmentChoice()">
+
+                        Lock In Decision
+
+                    </button>
+
+                </div>
+            `
+        }
+    `);
+}
+
+
+function setProtectedEquipmentAndContinue() {
+
+    state.equipmentChoice =
+        "protected";
+
+    persist();
+
+    goToStage(7);
+}
+
+
+function selectEquipmentChoice(
+    choice
+) {
+
+    state.equipmentChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "replace"
+
+        ? "replaceBtn"
+
+        : "waitBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitEquipmentChoice() {
+
+    if (
+        !state.equipmentChoice
+    ) {
+
+        showError(
+            "equipmentError",
+            "Choose how you want to handle the equipment problem."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(7);
+}
+
+
+/* =========================================================
+   EQUIPMENT RESULT
+   ========================================================= */
+
+function renderStage7() {
+
+    const result =
+        state.events.equipmentResult;
+
+
+    let outcome = "";
+
+
+    if (
+        result.type ===
+        "protected"
+    ) {
+
+        outcome = `
+
+            <div class="callout good">
+
+                <h3>
+                    No Closure
+                </h3>
+
+                <p>
+                    Your stronger original equipment
+                    investment keeps the shop operating
+                    normally.
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        +$31,000
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        No change
+                    </strong>
+                </p>
+
+            </div>
+        `;
+
+    }
+
+    else if (
+        result.type ===
+        "replace"
+    ) {
+
+        outcome = `
+
+            <div class="callout warning">
+
+                <h3>
+                    You Bought an Emergency Replacement
+                </h3>
+
+                <p>
+                    Cash Reserves:
+                    <strong>
+                        –$7,500
+                    </strong>
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        +$27,000
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        –1
+                    </strong>
+                    because shake sales were briefly interrupted.
+                </p>
+
+            </div>
+        `;
+
+    }
+
+    else {
+
+        outcome = `
+
+            <div class="callout bad">
+
+                <h3>
+                    You Operated Without Shakes
+                </h3>
+
+                <p>
+                    Customers are disappointed
+                    that one of your signature products
+                    is unavailable.
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        +$19,000
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        –8
+                    </strong>
+                </p>
+
+            </div>
+        `;
+    }
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Equipment Result
+        </div>
+
+        <h2>
+            Here's What Happened
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${outcome}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   HOLIDAY PAYROLL
+   ========================================================= */
+
+function renderStage8() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Payroll Day
+        </div>
+
+        <h2>
+            This Payroll Is More Expensive
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p>
+                There was a holiday during
+                this pay period.
+            </p>
+
+            <p>
+                Employees who worked the holiday
+                earned time-and-a-half.
+            </p>
+
+            <p class="big-number">
+                Payroll Due: $15,000
+            </p>
+
+        </div>
+
+
+        ${payrollResultHTML(
+            state.events.holidayPayroll
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   CHILD'S CAR
+   ========================================================= */
+
+function renderStage9() {
+
+    const result =
+        state.events.car;
+
+
+    const enough =
+        result.shortfall === 0;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Owner's Personal Life
+        </div>
+
+        <h2>
+            Your Child Is Turning 16
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                Your child is turning 16,
+                and you want to buy them a
+                used car for
+                <strong>$5,000</strong>.
+
+            </p>
+
+
+            <p>
+                Money previously paid to you
+                through Owner Payout is used first.
+            </p>
+
+
+            <p>
+                If your previous month's Owner Payout
+                was less than $5,000,
+                Cash Reserves are used to make up
+                the difference.
+            </p>
+
+        </div>
+
+
+        <div class="callout ${
+            enough
+            ? "good"
+            : "bad"
+        }">
+
+            <h3>
+                ${
+                    enough
+                    ? "You Found the Money"
+                    : "Money Is Tight"
+                }
+            </h3>
+
+
+            <p>
+                Previous month Owner Payout:
+                <strong>
+                    ${money(
+                        state.lastMonthOwnerPayout
+                    )}
+                </strong>
+            </p>
+
+
+            <p>
+                Owner money used:
+                <strong>
+                    ${money(
+                        result.ownerMoney
+                    )}
+                </strong>
+            </p>
+
+
+            <p>
+                Cash Reserves used:
+                <strong>
+                    ${money(
+                        result.reserveUsed
+                    )}
+                </strong>
+            </p>
+
+
+            ${
+                enough
+
+                ? `
+                    <p>
+                        You were able to cover
+                        the full $5,000.
+                    </p>
+                `
+
+                : `
+                    <p>
+                        You still could not cover
+                        <strong>
+                            ${money(
+                                result.shortfall
+                            )}
+                        </strong>.
+                    </p>
+
+                    <p>
+                        You feel bad about the situation
+                        and bring low morale into the store.
+
+                        <strong>
+                            Reputation –2.
+                        </strong>
+                    </p>
+                `
+            }
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   PAYROLL
+   ========================================================= */
+
+function renderStage10() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Payroll Day
+        </div>
+
+        <h2>
+            Another Two Weeks Have Passed
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="big-number">
+            Payroll Due: $10,000
+        </p>
+
+
+        ${payrollResultHTML(
+            state.events.payroll3
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Finish Month 2
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   END MONTH 2
+   ========================================================= */
+
+function renderStage11() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Month-End Decision
+        </div>
+
+        <h2>
+            End of Month 2: Rebudget
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="lead">
+            You may again move money
+            from any category into any
+            other category.
+        </p>
+
+
+        <p>
+            You may also invest revenue,
+            keep it available for future
+            costs, or pay money to yourself.
+        </p>
+
+
+        ${fullRebudgetHTML(
+            "month2",
+            "Month 2 Rebudget",
+            "Think about the challenges you have already faced and prepare for what might happen next."
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitFullRebudget('month2',12,true)">
+
+                Finalize Month 2
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   RETIREMENT PARTY
+   ========================================================= */
+
+function renderStage12() {
+
+    const enough =
+        state.categories.inventory >=
+        12000;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Major Sales Opportunity
+        </div>
+
+        <h2>
+            The Retirement Party Order
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                A local company wants
+                Cupcakes &amp; Shakes to provide
+                desserts and shakes for a huge
+                employee-family retirement event.
+
+            </p>
+
+
+            <p>
+                It would be your largest
+                single order yet.
+            </p>
+
+
+            <p>
+                Properly fulfilling the order
+                requires
+
+                <strong>
+                    $12,000 in Inventory.
+                </strong>
+            </p>
+
+        </div>
+
+
+        ${
+            !enough
+
+            ? `
+                <div class="callout warning">
+
+                    You currently have only
+
+                    <strong>
+                        ${money(
+                            state.categories.inventory
+                        )}
+                    </strong>
+
+                    in Inventory.
+
+                    <br><br>
+
+                    You may still accept the order,
+                    but there may not be enough for
+                    every guest or portion sizes
+                    may need to be smaller.
+
+                </div>
+            `
+
+            : ""
+        }
+
+
+        <div class="decision-grid">
+
+
+            <button
+                class="decision"
+                id="acceptRetirementBtn"
+                onclick="selectRetirement('accept')">
+
+                <strong>
+                    Accept the Order
+                </strong>
+
+                <span>
+                    Take the opportunity,
+                    even if your inventory
+                    might not be sufficient.
+                </span>
+
+            </button>
+
+
+            <button
+                class="decision"
+                id="declineRetirementBtn"
+                onclick="selectRetirement('decline')">
+
+                <strong>
+                    Decline the Order
+                </strong>
+
+                <span>
+                    Avoid taking an order
+                    you may not be prepared
+                    to fulfill.
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="retirementError"
+            class="error-box">
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitRetirementChoice()">
+
+                Lock In Decision
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+function selectRetirement(
+    choice
+) {
+
+    state.retirementChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "accept"
+
+        ? "acceptRetirementBtn"
+
+        : "declineRetirementBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitRetirementChoice() {
+
+    if (
+        !state.retirementChoice
+    ) {
+
+        showError(
+            "retirementError",
+            "Choose whether to accept or decline the order."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(13);
+}
+
+
+/* =========================================================
+   RETIREMENT PARTY RESULT
+   ========================================================= */
+
+function renderStage13() {
+
+    const result =
+        state.events.retirement;
+
+
+    let outcome;
+
+
+    if (
+        result.type ===
+        "success"
+    ) {
+
+        outcome = `
+
+            <div class="callout good">
+
+                <h3>
+                    The Event Is a Huge Success
+                </h3>
+
+                <p>
+                    Inventory:
+                    <strong>
+                        –$12,000
+                    </strong>
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        +$35,000
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        +10
+                    </strong>
+                </p>
+
+            </div>
+        `;
+
+    }
+
+    else if (
+        result.type ===
+        "short"
+    ) {
+
+        outcome = `
+
+            <div class="callout bad">
+
+                <h3>
+                    You Took the Order Without
+                    Enough Inventory
+                </h3>
+
+                <p>
+                    Some guests receive smaller
+                    portions and others do not get
+                    what was expected.
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        +$16,000
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        –15
+                    </strong>
+                </p>
+
+                <p>
+                    Inventory:
+                    <strong>
+                        $0 remaining
+                    </strong>
+                </p>
+
+            </div>
+        `;
+
+    }
+
+    else {
+
+        outcome = `
+
+            <div class="callout warning">
+
+                <h3>
+                    You Declined the Order
+                </h3>
+
+                <p>
+                    You avoid overextending
+                    the business, but the company
+                    is disappointed that you could
+                    not accommodate the event.
+                </p>
+
+                <p>
+                    Revenue:
+                    <strong>
+                        $0
+                    </strong>
+                </p>
+
+                <p>
+                    Reputation:
+                    <strong>
+                        –3
+                    </strong>
+                </p>
+
+            </div>
+        `;
+    }
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Large Order Result
+        </div>
+
+        <h2>
+            Here's What Happened
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${outcome}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   PAYROLL
+   ========================================================= */
+
+function renderStage14() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Payroll Day
+        </div>
+
+        <h2>
+            Payroll Is Due
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="big-number">
+            Payroll Due: $10,000
+        </p>
+
+
+        ${payrollResultHTML(
+            state.events.payroll4
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   CUSTOMER ACCIDENT
+   ========================================================= */
+
+function renderStage15() {
+
+    const canAffordExpensive =
+        state.categories.reserves >=
+        10000;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Unexpected Liability
+        </div>
+
+        <h2>
+            A Customer Is Injured
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                A customer slips on a
+                spilled shake near the counter
+                and is injured.
+
+            </p>
+
+
+            <p>
+                The customer files a claim
+                against the business.
+            </p>
+
+        </div>
+
+
+        <div class="callout info">
+
+            Your Insurance budget is currently
+
+            <strong>
+                ${money(
+                    state.categories.insurance
+                )}
+            </strong>.
+
+            <br><br>
+
+            You must first choose an attorney.
+
+        </div>
+
+
+        <div class="decision-grid">
+
+
+            <button
+                class="decision"
+                id="expensiveAttorneyBtn"
+                ${canAffordExpensive ? "" : "disabled"}
+                onclick="selectAttorney('expensive')">
+
+                <strong>
+                    Hire the Highly Rated Attorney
+                </strong>
+
+                <span>
+
+                    Attorney fee:
+                    <strong>$10,000</strong>.
+
+                    <br><br>
+
+                    The attorney is expected to
+                    negotiate a lower overall
+                    settlement, cutting your
+                    deductible payment in half.
+
+                    ${
+                        canAffordExpensive
+                        ? ""
+                        : "<br><br><strong>You do not have $10,000 in Cash Reserves.</strong>"
+                    }
+
+                </span>
+
+            </button>
+
+
+            <button
+                class="decision"
+                id="cheapAttorneyBtn"
+                onclick="selectAttorney('cheap')">
+
+                <strong>
+                    Hire the Cheapest Attorney
+                    You Can Find
+                </strong>
+
+                <span>
+
+                    Attorney fee:
+                    <strong>$2,000</strong>.
+
+                    <br><br>
+
+                    Your full insurance
+                    deductible/payment will apply.
+
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="attorneyError"
+            class="error-box">
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitAttorneyChoice()">
+
+                Hire Attorney
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+function selectAttorney(
+    choice
+) {
+
+    state.attorneyChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "expensive"
+
+        ? "expensiveAttorneyBtn"
+
+        : "cheapAttorneyBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitAttorneyChoice() {
+
+    if (
+        !state.attorneyChoice
+    ) {
+
+        showError(
+            "attorneyError",
+            "Choose an attorney."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(16);
+}
+
+
+/* =========================================================
+   PAYMENT BREAKDOWN
+   ========================================================= */
+
+function paymentBreakdownHTML(
+    payment
+) {
+
+    return `
+
+        <ul>
+
+            <li>
+                Cash Reserves:
+                <strong>
+                    ${money(
+                        payment.fromReserves
+                    )}
+                </strong>
+            </li>
+
+            <li>
+                Unallocated Revenue:
+                <strong>
+                    ${money(
+                        payment.fromRevenue
+                    )}
+                </strong>
+            </li>
+
+            ${
+                payment.shortfall > 0
+
+                ? `
+                    <li>
+                        Amount the business
+                        could not immediately cover:
+
+                        <strong>
+                            ${money(
+                                payment.shortfall
+                            )}
+                        </strong>
+                    </li>
+                `
+
+                : ""
+            }
+
+        </ul>
+    `;
+}
+
+
+/* =========================================================
+   ACCIDENT RESULT
+   ========================================================= */
+
+function renderStage16() {
+
+    const accident =
+        state.events.accident;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Liability Result
+        </div>
+
+        <h2>
+            The Claim Is Settled
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="callout info">
+
+            <h3>
+                Attorney Cost
+            </h3>
+
+
+            <p>
+                You hired the
+
+                <strong>
+                    ${
+                        state.attorneyChoice ===
+                        "expensive"
+
+                        ? "highly rated attorney"
+
+                        : "lower-cost attorney"
+                    }
+                </strong>.
+            </p>
+
+
+            <p>
+                Attorney fee:
+
+                <strong>
+                    ${money(
+                        accident.attorneyCost
+                    )}
+                </strong>
+            </p>
+
+
+            ${paymentBreakdownHTML(
+                accident.attorneyPayment
+            )}
+
+        </div>
+
+
+        <div class="callout ${
+            accident.insuranceLevel ===
+            "Full coverage"
+
+            ? "good"
+
+            : accident.insuranceLevel ===
+              "Limited coverage"
+
+            ? "warning"
+
+            : "bad"
+        }">
+
+
+            <h3>
+                ${accident.insuranceLevel}
+            </h3>
+
+
+            <p>
+                Based on your Insurance budget,
+                your normal deductible/payment
+                would have been
+
+                <strong>
+                    ${money(
+                        accident.baseDeductible
+                    )}
+                </strong>.
+            </p>
+
+
+            ${
+                state.attorneyChoice ===
+                "expensive"
+
+                ? `
+                    <p>
+                        The stronger attorney
+                        negotiated a smaller settlement.
+
+                        Your payment was reduced to
+
+                        <strong>
+                            ${money(
+                                accident.finalDeductible
+                            )}
+                        </strong>.
+                    </p>
+                `
+
+                : `
+                    <p>
+                        Your final payment remained
+
+                        <strong>
+                            ${money(
+                                accident.finalDeductible
+                            )}
+                        </strong>.
+                    </p>
+                `
+            }
+
+
+            <h4>
+                How the Claim Was Paid
+            </h4>
+
+
+            ${paymentBreakdownHTML(
+                accident.claimPayment
+            )}
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   PAYROLL AFTER ACCIDENT
+   ========================================================= */
+
+function renderStage17() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Payroll Day
+        </div>
+
+        <h2>
+            Back to Normal Operations
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="big-number">
+            Payroll Due: $10,000
+        </p>
+
+
+        ${payrollResultHTML(
+            state.events.payroll5
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   EMPLOYEE PROBLEM
+   ========================================================= */
+
+function renderStage18() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Staffing Problem
+        </div>
+
+        <h2>
+            Your Assistant Manager Quits
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                Your assistant manager
+                quits unexpectedly.
+
+            </p>
+
+
+            <p>
+                For the next month,
+                you either need to hire
+                quickly or personally cover
+                the missing shifts.
+            </p>
+
+        </div>
+
+
+        <div class="decision-grid">
+
+
+            <button
+                class="decision"
+                id="hireEmployeeBtn"
+                onclick="selectEmployee('hire')">
+
+                <strong>
+                    Hire Immediately
+                </strong>
+
+                <span>
+                    Recruitment and training cost:
+                    <strong>
+                        $2,500
+                    </strong>.
+                </span>
+
+            </button>
+
+
+            <button
+                class="decision"
+                id="ownerCoversBtn"
+                onclick="selectEmployee('owner')">
+
+                <strong>
+                    Owner Covers the Shifts
+                </strong>
+
+                <span>
+                    No recruitment cost.
+                    You personally cover the
+                    assistant manager's shifts.
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="employeeError"
+            class="error-box">
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitEmployeeChoice()">
+
+                Lock In Decision
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+function selectEmployee(
+    choice
+) {
+
+    state.employeeChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "hire"
+
+        ? "hireEmployeeBtn"
+
+        : "ownerCoversBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitEmployeeChoice() {
+
+    if (
+        !state.employeeChoice
+    ) {
+
+        showError(
+            "employeeError",
+            "Choose how you want to handle the staffing problem."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(19);
+}
+
+
+/* =========================================================
+   EMPLOYEE RESULT
+   ========================================================= */
+
+function renderStage19() {
+
+    const impact =
+        state.events.employeeImpact;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Staffing Result
+        </div>
+
+        <h2>
+            Your Decision Changes the Month Ahead
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${
+            impact.type ===
+            "hire"
+
+            ? `
+                <div class="callout info">
+
+                    <h3>
+                        You Hired a Replacement
+                    </h3>
+
+
+                    <p>
+                        Recruitment and training:
+
+                        <strong>
+                            –$2,500
+                        </strong>
+                    </p>
+
+
+                    ${paymentBreakdownHTML(
+                        impact.payment
+                    )}
+
+
+                    <p>
+                        Upcoming payroll:
+
+                        <strong>
+                            $10,000
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Because you hired someone,
+                        you will still have time
+                        to rebudget at month end.
+                    </p>
+
+                </div>
+            `
+
+            : `
+                <div class="callout good">
+
+                    <h3>
+                        You Covered the Shifts Yourself
+                    </h3>
+
+
+                    <p>
+                        Recruitment cost:
+
+                        <strong>
+                            $0
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Customers appreciate seeing
+                        the owner working directly
+                        in the store.
+                    </p>
+
+
+                    <p>
+                        Reputation:
+
+                        <strong>
+                            +3
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Upcoming payroll:
+
+                        <strong>
+                            $8,000
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        However, you are too busy
+                        to rebudget at month end.
+                    </p>
+
+
+                    <p>
+                        You will receive
+
+                        <strong>
+                            no owner payout
+                        </strong>
+
+                        and available revenue will
+                        automatically be divided
+                        evenly among the seven
+                        budget categories.
+                    </p>
+
+                </div>
+            `
+        }
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Process Payroll
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   EMPLOYEE PAYROLL / MONTH END
+   ========================================================= */
+
+function renderStage20() {
+
+    const payroll =
+        state.events.payroll6;
+
+
+    if (
+        state.employeeChoice ===
+        "owner"
+    ) {
+
+        const distribution =
+            state.events.ownerAutoAllocation;
+
+
+        return pageShell(`
+
+            <div class="eyebrow">
+                Month-End Result
+            </div>
+
+            <h2>
+                You Were Too Busy to Rebudget
+            </h2>
+
+            <div class="rule"></div>
+
+
+            ${payrollResultHTML(
+                payroll
+            )}
+
+
+            <div class="callout info">
+
+                <h3>
+                    Automatic Revenue Allocation
+                </h3>
+
+
+                <p>
+                    Because you personally covered
+                    the assistant manager's shifts,
+                    you had no time for a month-end
+                    budget meeting.
+                </p>
+
+
+                <p>
+                    Owner payout:
+
+                    <strong>
+                        $0
+                    </strong>
+                </p>
+
+
+                <p>
+                    The available
+
+                    <strong>
+                        ${money(
+                            distribution.amount
+                        )}
+                    </strong>
+
+                    in revenue was divided
+                    as evenly as possible
+                    among the seven budget categories.
+                </p>
+
+            </div>
+
+
+            <div class="button-row">
+
+                <button
+                    class="primary"
+                    onclick="nextStage()">
+
+                    Continue to Final Month
+
+                </button>
+
+            </div>
+        `);
+    }
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Month-End Decision
+        </div>
+
+        <h2>
+            Payroll Is Complete — Now Rebudget
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${payrollResultHTML(
+            payroll
+        )}
+
+
+        ${fullRebudgetHTML(
+            "employeeMonth",
+            "Month-End Rebudget",
+            "Because you hired a replacement, you still have time to make financial decisions."
+        )}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitFullRebudget('employeeMonth',21,false)">
+
+                Save Budget &amp; Continue
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   SUMMER EXPANSION
+   ========================================================= */
+
+function renderStage21() {
+
+    const canOpen =
+        state.categories.location >=
+        20000;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Final Month
+        </div>
+
+        <h2>
+            Preparing for Summer
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <div class="scenario">
+
+            <p class="lead">
+
+                This is your final month
+                before you report your progress
+                to your passive business partner.
+
+            </p>
+
+
+            <p>
+                An opportunity appears to open
+                a very small
+                <strong>
+                    drive-thru-only location
+                </strong>
+                in the next town over for summer.
+            </p>
+
+
+            <p>
+                You only need the first month's rent,
+                last month's rent, and deposit
+                to get started.
+            </p>
+
+
+            <p class="big-number">
+                Cost to Open: $20,000
+            </p>
+
+
+            <p>
+                The entire $20,000 must come from
+                your
+                <strong>
+                    Location / Building
+                </strong>
+                budget.
+            </p>
+
+
+            <p>
+                Cash Reserves cannot be used
+                because your passive partner
+                expects the business to maintain
+                strong cash reserves.
+            </p>
+
+        </div>
+
+
+        <div class="decision-grid">
+
+
+            <button
+                class="decision"
+                id="openLocationBtn"
+                ${canOpen ? "" : "disabled"}
+                onclick="selectExpansion('open')">
+
+                <strong>
+                    Open the Summer Drive-Thru
+                </strong>
+
+                <span>
+
+                    Cost:
+                    $20,000 from
+                    Location / Building.
+
+                    ${
+                        canOpen
+                        ? ""
+                        : "<br><br><strong>You do not have $20,000 in Location / Building.</strong>"
+                    }
+
+                </span>
+
+            </button>
+
+
+            <button
+                class="decision"
+                id="skipLocationBtn"
+                onclick="selectExpansion('skip')">
+
+                <strong>
+                    Do Not Open
+                </strong>
+
+                <span>
+                    Keep operating only your
+                    existing store.
+                </span>
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="expansionError"
+            class="error-box">
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitExpansionChoice()">
+
+                Lock In Decision
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+function selectExpansion(
+    choice
+) {
+
+    state.expansionChoice =
+        choice;
+
+
+    document
+    .querySelectorAll(
+        ".decision"
+    )
+    .forEach(
+        element =>
+            element.classList.remove(
+                "selected"
+            )
+    );
+
+
+    document
+    .getElementById(
+
+        choice ===
+        "open"
+
+        ? "openLocationBtn"
+
+        : "skipLocationBtn"
+
+    )
+    .classList.add(
+        "selected"
+    );
+}
+
+
+function submitExpansionChoice() {
+
+    if (
+        !state.expansionChoice
+    ) {
+
+        showError(
+            "expansionError",
+            "Choose whether to open the new location."
+        );
+
+        return;
+    }
+
+
+    persist();
+
+    goToStage(22);
+}
+
+
+/* =========================================================
+   EXPANSION RESULT
+   ========================================================= */
+
+function renderStage22() {
+
+    const result =
+        state.events.expansion;
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Expansion Result
+        </div>
+
+        <h2>
+            Your Summer Decision Has an Impact
+        </h2>
+
+        <div class="rule"></div>
+
+
+        ${
+            result.type ===
+            "open"
+
+            ? `
+                <div class="callout good">
+
+                    <h3>
+                        The New Drive-Thru Takes Off
+                    </h3>
+
+                    <p>
+                        Location / Building:
+                        <strong>
+                            –$20,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        First-month revenue:
+                        <strong>
+                            +$50,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            +10
+                        </strong>
+                    </p>
+
+                </div>
+            `
+
+            : `
+                <div class="callout info">
+
+                    <h3>
+                        You Stay Focused on the
+                        Original Store
+                    </h3>
+
+                    <p>
+                        Regular revenue:
+                        <strong>
+                            +$22,000
+                        </strong>
+                    </p>
+
+                    <p>
+                        Reputation:
+                        <strong>
+                            No change
+                        </strong>
+                    </p>
+
+                </div>
+            `
+        }
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="nextStage()">
+
+                Process Final Payroll
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   FINAL REVENUE ALLOCATION
+   ========================================================= */
+
+function finalRevenueAllocatorHTML() {
+
+    const pool =
+        state.availableRevenue;
+
+
+    return `
+        <div class="budget-form">
+
+            <div class="form-title">
+
+                <h3>
+                    Final Revenue Decision
+                </h3>
+
+                <p>
+                    This is your final opportunity
+                    to pay money to the owner.
+                </p>
+
+            </div>
+
+
+            <div class="form-body">
+
+
+                <div class="callout info">
+
+                    Available revenue:
+
+                    <strong>
+                        ${money(pool)}
+                    </strong>
+
+                    <br><br>
+
+                    Keeping money in the business
+                    provides funding for future
+                    operating expenses.
+
+                    <br><br>
+
+                    Paying money to the owner makes
+                    running the business financially
+                    worthwhile for you.
+
+                </div>
+
+
+                ${CATEGORY_META.map(cat => `
+
+                    <div class="money-row">
+
+                        <label>
+                            Add to
+                            ${cat.label}
+                        </label>
+
+                        <div class="money-input-wrap">
+
+                            <input
+                                class="money-input"
+                                id="final_${cat.key}"
+                                type="number"
+                                min="0"
+                                value="0"
+                                oninput="updateFinalRevenueTotal()">
+
+                        </div>
+
+                    </div>
+
+                `).join("")}
+
+
+                <div class="money-row">
+
+                    <label>
+                        Final Owner Payout
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="final_owner"
+                            type="number"
+                            min="0"
+                            value="0"
+                            oninput="updateFinalRevenueTotal()">
+
+                    </div>
+
+                </div>
+
+
+                <div class="money-row">
+
+                    <label>
+                        Leave as Unallocated Revenue
+                    </label>
+
+                    <div class="money-input-wrap">
+
+                        <input
+                            class="money-input"
+                            id="final_revenue"
+                            type="number"
+                            min="0"
+                            value="${pool}"
+                            oninput="updateFinalRevenueTotal()">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="total-box"
+                    id="final_totalBox">
+
+                    <span>
+                        Funds Assigned
+                    </span>
+
+                    <strong
+                        id="final_total">
+
+                        ${money(pool)}
+
+                    </strong>
+
+                </div>
+
+
+                <div
+                    id="final_error"
+                    class="error-box">
+                </div>
+
+            </div>
+
+        </div>
+    `;
+}
+
+
+function updateFinalRevenueTotal() {
+
+    let total = 0;
+
+
+    CATEGORY_META.forEach(cat => {
+
+        total +=
+            readMoney(
+                "final_" +
+                cat.key
+            );
+    });
+
+
+    total +=
+        readMoney(
+            "final_owner"
+        );
+
+
+    total +=
+        readMoney(
+            "final_revenue"
+        );
+
+
+    document
+        .getElementById(
+            "final_total"
+        )
+        .textContent =
+            money(total);
+
+
+    const pool =
+        state.availableRevenue;
+
+
+    const box =
+        document.getElementById(
+            "final_totalBox"
+        );
+
+
+    box.classList.remove(
+        "good",
+        "over"
+    );
+
+
+    if (
+        total === pool
+    ) {
+
+        box.classList.add(
+            "good"
+        );
+    }
+
+
+    if (
+        total > pool
+    ) {
+
+        box.classList.add(
+            "over"
+        );
+    }
+}
+
+
+function submitFinalRevenue() {
+
+    const pool =
+        state.availableRevenue;
+
+
+    let total = 0;
+
+    const additions = {};
+
+
+    CATEGORY_META.forEach(cat => {
+
+        additions[cat.key] =
+            readMoney(
+                "final_" +
+                cat.key
+            );
+
+
+        total +=
+            additions[
+                cat.key
+            ];
+    });
+
+
+    const owner =
+        readMoney(
+            "final_owner"
+        );
+
+
+    const revenue =
+        readMoney(
+            "final_revenue"
+        );
+
+
+    total +=
+        owner +
+        revenue;
+
+
+    if (
+        total !== pool
+    ) {
+
+        showError(
+
+            "final_error",
+
+            "You must account for all " +
+            money(pool) +
+            " of your remaining revenue."
+        );
+
+        return;
+    }
+
+
+    CATEGORY_META.forEach(cat => {
+
+        state.categories[
+            cat.key
+        ] +=
+            additions[
+                cat.key
+            ];
+    });
+
+
+    state.availableRevenue =
+        revenue;
+
+
+    addOwnerPayout(owner);
+
+
+    persist();
+
+    goToStage(24);
+}
+
+
+/* =========================================================
+   FINAL PAYROLL
+   ========================================================= */
+
+function renderStage23() {
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Final Business Decision
+        </div>
+
+        <h2>
+            Last Payroll &amp; Owner Payout
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="big-number">
+            Final Payroll Due: $10,000
+        </p>
+
+
+        ${payrollResultHTML(
+            state.events.finalPayroll
+        )}
+
+
+        ${finalRevenueAllocatorHTML()}
+
+
+        <div class="button-row">
+
+            <button
+                class="primary"
+                onclick="submitFinalRevenue()">
+
+                Finish the Simulation
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   FINAL SCORE
+   ========================================================= */
+
+function calculateFinalScore() {
+
+    /*
+    40 points = revenue
+    35 points = reputation
+    25 points = owner payout
+    */
+
+    const revenueScore =
+        Math.min(
+            40,
+            Math.round(
+                (
+                    state.totalRevenue /
+                    190000
+                ) * 40
+            )
+        );
+
+
+    const reputationScore =
+        Math.min(
+            35,
+            Math.max(
+                0,
+                Math.round(
+                    (
+                        state.reputation /
+                        80
+                    ) * 35
+                )
+            )
+        );
+
+
+    const ownerScore =
+        Math.min(
+            25,
+            Math.round(
+                (
+                    state.ownerPayout /
+                    20000
+                ) * 25
+            )
+        );
+
+
+    return {
+
+        revenueScore,
+
+        reputationScore,
+
+        ownerScore,
+
+        total:
+            revenueScore +
+            reputationScore +
+            ownerScore
+    };
+}
+
+
+function finalRating(
+    score
+) {
+
+    if (
+        score >= 85
+    ) {
+
+        return "Outstanding Business Launch";
+    }
+
+
+    if (
+        score >= 70
+    ) {
+
+        return "Strong Business Launch";
+    }
+
+
+    if (
+        score >= 55
+    ) {
+
+        return "Promising — But With Some Weak Spots";
+    }
+
+
+    if (
+        score >= 40
+    ) {
+
+        return "The Business Is Surviving";
+    }
+
+
+    return "The Business Is in Trouble";
+}
+
+
+function renderStage24() {
+
+    const score =
+        calculateFinalScore();
+
+
+    return pageShell(`
+
+        <div class="eyebrow">
+            Simulation Complete
+        </div>
+
+        <h2>
+            Your Business Report
+        </h2>
+
+        <div class="rule"></div>
+
+
+        <p class="lead">
+
+            It is time to report your
+            progress to your passive
+            business partner.
+
+        </p>
+
+
+        <div class="final-grid">
+
+
+            <div class="final-card">
+
+                <span>
+                    Total Revenue
+                </span>
+
+                <strong>
+                    ${money(
+                        state.totalRevenue
+                    )}
+                </strong>
+
+            </div>
+
+
+            <div class="final-card">
+
+                <span>
+                    Final Reputation
+                </span>
+
+                <strong>
+                    ${state.reputation}
+                </strong>
+
+            </div>
+
+
+            <div class="final-card">
+
+                <span>
+                    Owner Payout
+                </span>
+
+                <strong>
+                    ${money(
+                        state.ownerPayout
+                    )}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="overall-score">
+
+            <div class="score-number">
+
+                ${score.total}
+
+                <span>
+                    /100
+                </span>
+
+            </div>
+
+
+            <div class="result-title">
+
+                ${finalRating(
+                    score.total
+                )}
+
+            </div>
+
+
+            <p>
+                Your score balances revenue,
+                reputation, and owner payout.
+            </p>
+
+        </div>
+
+
+        <div class="category-grid">
+
+
+            <div class="category-card">
+
+                <h3>
+                    Revenue Score
+                </h3>
+
+                <p>
+                    ${score.revenueScore}
+                    / 40 points
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Reputation Score
+                </h3>
+
+                <p>
+                    ${score.reputationScore}
+                    / 35 points
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Owner Payout Score
+                </h3>
+
+                <p>
+                    ${score.ownerScore}
+                    / 25 points
+                </p>
+
+            </div>
+
+
+            <div class="category-card">
+
+                <h3>
+                    Unallocated Revenue Remaining
+                </h3>
+
+                <p>
+                    ${money(
+                        state.availableRevenue
+                    )}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="scenario">
+
+            <h3>
+                Think About Your Strategy
+            </h3>
+
+
+            <p>
+                The business with the highest
+                revenue is not automatically
+                the best-run business.
+            </p>
+
+
+            <p>
+                Successful small-business
+                management requires balancing
+                growth, preparedness, risk,
+                employees, reputation,
+                cash needs, and the financial
+                needs of the owner.
+            </p>
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button
+                class="secondary"
+                onclick="resetGame()">
+
+                Play Again With a Different Strategy
+
+            </button>
+
+        </div>
+    `);
+}
+
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+
+function render() {
+
+    applyStageEvent();
+
+
+    const renderers = [
+
+        renderStage0,
+
+        renderStage1,
+
+        renderStage2,
+
+        renderStage3,
+
+        renderStage4,
+
+        renderStage5,
+
+        renderStage6,
+
+        renderStage7,
+
+        renderStage8,
+
+        renderStage9,
+
+        renderStage10,
+
+        renderStage11,
+
+        renderStage12,
+
+        renderStage13,
+
+        renderStage14,
+
+        renderStage15,
+
+        renderStage16,
+
+        renderStage17,
+
+        renderStage18,
+
+        renderStage19,
+
+        renderStage20,
+
+        renderStage21,
+
+        renderStage22,
+
+        renderStage23,
+
+        renderStage24
+    ];
+
+
+    document
+        .getElementById(
+            "app"
+        )
+        .innerHTML =
+            renderers[
+                state.stage
+            ]();
+}
+
+
+/* =========================================================
+   ERRORS
+   ========================================================= */
+
+function showError(
+    id,
+    message
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.textContent =
+        message;
+
+
+    element.style.display =
+        "block";
+
+
+    element.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetGame() {
+
+    const confirmed =
+        confirm(
+            "Restart the simulation? All current decisions and scores will be erased."
+        );
+
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+
+    state =
+        freshState();
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+
+    render();
+}
+
+
+/* =========================================================
+   START GAME
+   ========================================================= */
+
+render();
+
+</script>
+
+</body>
+</html>
